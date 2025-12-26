@@ -70,7 +70,8 @@ header {
             }
         }
         &.contact {
-            justify-content: end;
+            justify-content: start;
+            text-align: right;
         }
     }
 }
