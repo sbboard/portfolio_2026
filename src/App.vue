@@ -3,7 +3,7 @@ import FilterSvg from './components/FilterSvg.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import ThreeDeeTeeVee from './components/ThreeDeeTeeVee.vue';
-import TimeLine from './components/TimeLine.vue';
+import TimeLine from './components/Timeline/_Main.vue';
 </script>
 
 <template>

@@ -36,4 +36,6 @@ export const projects: Project[] = [
         image: 'https://colinbuffum.com/img/parker.jpg',
         video: 'salvage.mp4',
     },
-];
+].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+});
