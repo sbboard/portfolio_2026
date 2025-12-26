@@ -55,6 +55,8 @@ main {
         justify-content: center;
         align-items: center;
         & > div {
+            width: 50%;
+            max-width: 50%;
             min-width: 50%;
             flex: 1;
         }

@@ -19,11 +19,6 @@ const loader = new FBXLoader();
 const textureLoader = new THREE.TextureLoader();
 const baseColor = textureLoader.load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace; // Color texture
-const normalMap = textureLoader.load('/models/textures/DefaultMaterial_Normal_OpenGL.jpg');
-const roughnessMap = textureLoader.load('/models/textures/DefaultMaterial_Roughness.jpg');
-const metalnessMap = textureLoader.load('/models/textures/DefaultMaterial_Metallic.jpg');
-const aoMap = textureLoader.load('/models/textures/DefaultMaterial_Mixed_AO.jpg');
-const heightMap = textureLoader.load('/models/textures/DefaultMaterial_Height.jpg');
 
 // Model & pivot
 let model: THREE.Group;
@@ -35,32 +30,20 @@ loader.load('/models/tv.fbx', fbx => {
 
     fbx.traverse(c => {
         const child = c as THREE.Mesh;
-        if (child.isMesh) {
-            const mat = new THREE.MeshStandardMaterial({
-                map: baseColor,
-                normalMap,
-                roughnessMap,
-                metalnessMap,
-                aoMap,
-                displacementMap: heightMap,
-                displacementScale: 0.02,
-                metalness: 0.2, // slightly metallic
-                roughness: 0.2, // less reflective
-            });
+        if (!child.isMesh) return;
+        const mat = new THREE.MeshStandardMaterial({ map: baseColor });
 
-            child.material = mat;
+        child.material = mat;
 
-            // UV2 for AO map
-            if (!child.geometry.attributes.uv2 && child.geometry.attributes.uv) {
-                child.geometry.setAttribute(
-                    'uv2',
-                    new THREE.BufferAttribute(child.geometry.attributes.uv.array, 2)
-                );
-            }
-        }
+        if (child.geometry.attributes.uv2 || !child.geometry.attributes.uv) return;
+        child.geometry.setAttribute(
+            'uv2',
+            new THREE.BufferAttribute(child.geometry.attributes.uv.array, 2)
+        );
     });
 
-    fbx.scale.set(0.01, 0.01, 0.01);
+    const SCALE = 0.02;
+    fbx.scale.set(SCALE, SCALE, SCALE);
 
     // Correct facing
     fbx.rotation.y = -Math.PI / 2; // Adjust until front faces +Z
