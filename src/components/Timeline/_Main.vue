@@ -23,13 +23,20 @@ const { getDateRange, findProjectByDate } = useProjects();
 .timelineWrap {
     width: 100%;
     overflow: auto hidden;
-    scrollbar-width: none;
     position: relative;
+    padding-bottom: var(--padding);
     &::-webkit-scrollbar {
-        width: 0;
-        height: 0;
-        display: none;
+        height: 8px;
+        background-color: var(--textColorOpaque);
+        border-radius: 8px;
     }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--textColor);
+        border-radius: 8px;
+        background-clip: padding-box;
+    }
+
     .timeline {
         --imgSize: 75px;
         --dashHeight: 25px;

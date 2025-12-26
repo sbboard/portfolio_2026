@@ -22,6 +22,7 @@ import TimeLine from './components/Timeline/_Main.vue';
 main {
     --padding: 12px;
     --textColor: #878787;
+    --textColorOpaque: #87878780;
     max-height: 100vh;
     min-height: 100vh;
     overflow: hidden;

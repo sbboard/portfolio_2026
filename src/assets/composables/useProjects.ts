@@ -9,42 +9,42 @@ export interface Project {
     repo?: string;
 }
 
+const projects: Project[] = [
+    {
+        name: 'Salvaged Parts',
+        date: '05/22',
+        description: 'Artsy web toy about an astronaut making music.',
+        tech: ['Javascript'],
+        image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',
+        video: 'salvage.mp4',
+        link: 'https://gang-fight.com/projects/salvaged_parts/',
+    },
+    {
+        name: 'Parker Kelly Website',
+        date: '02/18',
+        description: 'Portfolio website for an advertising creative.',
+        tech: ['HTML5', 'CSS3', 'Javascript', 'PHP', 'JQuery'],
+        image: 'https://colinbuffum.com/img/parker.jpg',
+        video: 'salvage.mp4',
+    },
+    {
+        name: 'PC-98 Emulation For Beginners',
+        date: '04/21',
+        description: 'Tutorial website for getting started with PC-98 emulation.',
+        tech: ['HTML5', 'CSS3'],
+        image: 'https://gang-fight.com/assets/contentImages/pc982024.png',
+        video: 'salvage.mp4',
+        link: 'https://gang-fight.com/projects/98faq/',
+    },
+].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+});
+
 /**
  * Composable to manage projects.
  * @returns An object containing the list of projects and utility functions.
  */
 export function useProjects() {
-    const projects: Project[] = [
-        {
-            name: 'Salvaged Parts',
-            date: '05/22',
-            description: 'Artsy web toy about an astronaut making music.',
-            tech: ['Javascript'],
-            image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',
-            video: 'salvage.mp4',
-            link: 'https://gang-fight.com/projects/salvaged_parts/',
-        },
-        {
-            name: 'Parker Kelly Website',
-            date: '02/18',
-            description: 'Portfolio website for an advertising creative.',
-            tech: ['HTML5', 'CSS3', 'Javascript', 'PHP', 'JQuery'],
-            image: 'https://colinbuffum.com/img/parker.jpg',
-            video: 'salvage.mp4',
-        },
-        {
-            name: 'PC-98 Emulation For Beginners',
-            date: '04/21',
-            description: 'Tutorial website for getting started with PC-98 emulation.',
-            tech: ['HTML5', 'CSS3'],
-            image: 'https://gang-fight.com/assets/contentImages/pc982024.png',
-            video: 'salvage.mp4',
-            link: 'https://gang-fight.com/projects/98faq/',
-        },
-    ].sort((a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-    });
-
     /**
      * Get the earliest or latest project date.
      * @param type 'first' for earliest date, 'last' for latest date
