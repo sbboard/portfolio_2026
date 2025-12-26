@@ -33,7 +33,8 @@ loader.load('/models/tv.fbx', fbx => {
     const pivot = new THREE.Group();
     scene.add(pivot);
 
-    fbx.traverse(child => {
+    fbx.traverse(c => {
+        const child = c as THREE.Mesh;
         if (child.isMesh) {
             const mat = new THREE.MeshStandardMaterial({
                 map: baseColor,
@@ -50,7 +51,7 @@ loader.load('/models/tv.fbx', fbx => {
             child.material = mat;
 
             // UV2 for AO map
-            if (!child.geometry.attributes.uv2) {
+            if (!child.geometry.attributes.uv2 && child.geometry.attributes.uv) {
                 child.geometry.setAttribute(
                     'uv2',
                     new THREE.BufferAttribute(child.geometry.attributes.uv.array, 2)
