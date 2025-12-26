@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { type Project } from '@/assets/composables/useProjects';
+import { type Project } from '@/composables/useProjects';
+import { useProjectStore } from '@/stores/project';
 
 const { project } = defineProps<{ project: Project }>();
+const projectStore = useProjectStore();
 </script>
 
 <template>
-    <div class="project">
+    <div class="project" @click="projectStore.setCurrentProjectDate(project.date)">
         <p>{{ project.date }}</p>
         <div class="bullet">&#8226;</div>
         <div class="dash"></div>

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import FilterSvg from './components/FilterSvg.vue';
+import ProjectViewer from './components/ProjectViewer.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import ThreeDeeTeeVee from './components/ThreeDeeTeeVee.vue';
@@ -9,8 +10,9 @@ import TimeLine from './components/Timeline/_Main.vue';
 <template>
     <main>
         <SiteHeader />
-        <div class="">
+        <div class="content">
             <ThreeDeeTeeVee />
+            <ProjectViewer></ProjectViewer>
         </div>
         <TimeLine />
         <SiteFooter />
@@ -45,6 +47,13 @@ main {
         &:visited {
             color: var(--textColor);
         }
+    }
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>

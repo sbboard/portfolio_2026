@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useProjects } from '@/assets/composables/useProjects';
+import { useProjects } from '@/composables/useProjects';
 import ProjectMarker from './ProjectMarker.vue';
 
 const { getDateRange, findProjectByDate } = useProjects();

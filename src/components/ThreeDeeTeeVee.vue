@@ -137,6 +137,6 @@ onUnmounted(() => {
 <style scoped>
 .viewer {
     overflow: hidden;
-    flex: 1;
+    height: 100%;
 }
 </style>
