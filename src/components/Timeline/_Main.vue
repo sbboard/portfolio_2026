@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { projects } from '@/assets/composables/useProjects';
+import { useProjects } from '@/assets/composables/useProjects';
 import ProjectMarker from './ProjectMarker.vue';
+
+const { projects } = useProjects();
 </script>
 
 <template>
