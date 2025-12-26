@@ -12,21 +12,20 @@ import video from '@/assets/me.mp4';
                 <source :src="video" type="video/mp4" />
             </video>
         </div>
-        <div>
+        <div class="bio">
             <h1>Colin Buffum</h1>
-            <h2>
+            <p>
                 Front-end engineer specializing in Vue and Nuxt, with experience building and
-                maintaining production web applications and interactive UI systems. Proven ability
-                to deliver scalable solutions for major brands and creative side projects. Seeking a
-                challenging role to contribute to creative web projects.
-            </h2>
+                maintaining production web applications and interactive UI systems.<br />
+                Seeking a challenging role to contribute to creative web projects.
+            </p>
         </div>
-        <div>
-            <a>Resume</a>
-            Work With Me
+        <div class="contact">
+            <h2>Work With Me</h2>
             <span @click="copyToClipboard('colin.buffum@gmail.com')"
                 >colin.buffum@gmail.com <FontAwesomeIcon :icon="faClipboard"
             /></span>
+            <h2><a href="https://colinbuffum.com/resume.pdf" target="_blank">Resume</a></h2>
         </div>
     </header>
 </template>
@@ -35,13 +34,43 @@ import video from '@/assets/me.mp4';
 header {
     display: flex;
     flex-direction: row;
-    .videoContainer {
-        width: 150px;
-        height: 150px;
-        overflow: hidden;
-        video {
-            filter: url(#dither);
-            height: 100%;
+    gap: var(--padding);
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding);
+        justify-content: space-between;
+        h1,
+        h2 {
+            margin: 0;
+            font-weight: 800;
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+        }
+        &.videoContainer {
+            width: 125px;
+            height: 125px;
+            min-width: 150px;
+            overflow: hidden;
+            justify-content: center;
+            flex-direction: row;
+            video {
+                filter: url(#dither) contrast(1) grayscale(1);
+                height: 100%;
+            }
+        }
+        &.bio {
+            flex: 1;
+            p {
+                max-width: 650px;
+            }
+        }
+        &.contact {
+            justify-content: end;
         }
     }
 }

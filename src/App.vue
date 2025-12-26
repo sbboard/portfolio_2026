@@ -21,6 +21,7 @@ import TimeLine from './components/TimeLine.vue';
 
 main {
     --padding: 12px;
+    --textColor: #878787;
     max-height: 100vh;
     min-height: 100vh;
     overflow: hidden;
@@ -34,5 +35,12 @@ main {
     font-family: 'Funnel Sans', sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    gap: var(--padding);
+    a {
+        color: var(--textColor);
+        &:visited {
+            color: var(--textColor);
+        }
+    }
 }
 </style>
