@@ -1,10 +1,23 @@
 <script lang="ts" setup>
+import { useProjects } from '@/composables/useProjects';
+import { useProjectStore } from '@/stores/project';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
+const projectStore = useProjectStore();
+const { findProjectByDate } = useProjects();
 const container = ref<HTMLElement | null>(null);
 const scene = new THREE.Scene();
+
+watch(
+    () => projectStore.currentProjectDate,
+    newProject => {
+        const project = findProjectByDate(newProject);
+        if (!newProject || !project) return;
+        setVideoMat(project.video || '');
+    }
+);
 
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 1.5, 5);
@@ -20,15 +33,29 @@ const textureLoader = new THREE.TextureLoader();
 const baseColor = textureLoader.load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace; // Color texture
 
-const video = document.createElement('video');
-video.src = '/projectPreviews/salvage.mp4';
-video.loop = true;
-video.muted = true;
-video.play();
+function setVideoMat(src: string) {
+    if (!model) return;
 
-const videoTexture = new THREE.VideoTexture(video);
-videoTexture.colorSpace = THREE.SRGBColorSpace;
-const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
+    const video = document.createElement('video');
+    video.src = `/projectPreviews/${src}`;
+    video.loop = true;
+    video.muted = true;
+
+    // Wait for video to load before applying material
+    video.addEventListener('canplay', () => {
+        const videoTexture = new THREE.VideoTexture(video);
+        videoTexture.colorSpace = THREE.SRGBColorSpace;
+        const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
+
+        model.traverse(child => {
+            const mesh = child as THREE.Mesh;
+            if (!mesh.isMesh) return;
+            mesh.material = videoMat;
+        });
+    });
+
+    video.play();
+}
 
 // Model & pivot
 let model: THREE.Group;
@@ -86,21 +113,15 @@ window.addEventListener('mousemove', e => {
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 });
 
-// Animate
 function animate() {
     requestAnimationFrame(animate);
-
-    if (model) {
-        const fbx = model.children[0];
-        if (!fbx) return;
-        fbx.rotation.y = baseRotation.y + mouse.x * 0.5;
-        fbx.rotation.x = baseRotation.x + mouse.y * -0.3;
-    }
-
+    if (!model) return;
+    const fbx = model.children[0];
+    if (!fbx) return;
+    fbx.rotation.y = baseRotation.y + mouse.x * 0.5;
+    fbx.rotation.x = baseRotation.x + mouse.y * -0.3;
     renderer.render(scene, camera);
 }
-
-animate();
 
 function setRendererSize() {
     if (!container.value) return;
@@ -116,6 +137,7 @@ onMounted(() => {
     container.value.appendChild(renderer.domElement);
     setRendererSize();
     window.addEventListener('resize', setRendererSize);
+    animate();
 });
 
 onUnmounted(() => {

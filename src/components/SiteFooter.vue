@@ -2,20 +2,17 @@
 
 <template>
     <footer>
-        I don't actually have anything meaningful, useful, or even particularly interesting to say
-        in this footer. To be completely honest, the only real reason this exists at all is because
-        I thought a footer with some small text at the bottom of the page would look kind of cool.
-        There's no important information here, no hidden message, no fine print, and no legal
-        disclaimer. But that's sort of the point - not everything on a page has to carry
-        responsibility. Some things are allowed to exist simply because they add texture, balance,
-        and a sense of completion. This footer is here to give the page a gentle landing, a quiet
-        moment after the main content, a place where the design can breathe before everything fades
-        out. If I wanted to I guess I could put the first breadcrumb of an ARG for all you heavy
-        readers out there who always scroll just a little bit farther than most people do. But for
-        now, it's just text - comfortable, unbothered, doing what footers have always done:
-        anchoring the page, adding a little personality, and reminding you that someone thought
-        about the space all the way down here too. And honestly, that feels like a pretty good job
-        for a footer.
+        I don't actually have anything to say in this footer. The only real reason this footer
+        exists is because I thought a footer with some small text at the bottom of the page would
+        look cool. There's no information here, no hidden message, no fine print, and no legal
+        disclaimer. I guess not everything that exists needs to carry responsibility. Some things
+        are allowed to exist simply because they add texture, balance, and a sense of completion.
+        This footer is here to give the page a quiet moment after the main content, a place where
+        the design can breathe before everything fades out. If I wanted to I could put the first
+        breadcrumb of an ARG in here for all you heavy readers out there, but for now, it's just
+        text - comfortable, unbothered, doing what footers have always done: anchoring the page,
+        adding a little personality, and reminding you that someone thought about the space all the
+        way down here too. And honestly, that feels like a pretty good job for a footer.
     </footer>
 </template>
 
