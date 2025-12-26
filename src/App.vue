@@ -54,6 +54,10 @@ main {
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        & > div {
+            min-width: 50%;
+            flex: 1;
+        }
     }
 }
 </style>

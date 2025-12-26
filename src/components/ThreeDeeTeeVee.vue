@@ -137,6 +137,7 @@ onUnmounted(() => {
 <style scoped>
 .viewer {
     overflow: hidden;
-    height: 100%;
+    min-height: 100%;
+    height: -webkit-fill-available;
 }
 </style>
