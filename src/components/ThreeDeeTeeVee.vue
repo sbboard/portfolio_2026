@@ -20,6 +20,16 @@ const textureLoader = new THREE.TextureLoader();
 const baseColor = textureLoader.load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace; // Color texture
 
+const video = document.createElement('video');
+video.src = '/projectPreviews/salvage.mp4';
+video.loop = true;
+video.muted = true;
+video.play();
+
+const videoTexture = new THREE.VideoTexture(video);
+videoTexture.colorSpace = THREE.SRGBColorSpace;
+const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
+
 // Model & pivot
 let model: THREE.Group;
 const baseRotation = new THREE.Euler();
