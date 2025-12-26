@@ -22,5 +22,6 @@
 <style scoped>
 footer {
     font-size: 0.6em;
+    text-align: right;
 }
 </style>
