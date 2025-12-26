@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { type Project } from '@/assets/composables/useProjects';
-import { formatDate } from '@/utils/utils';
 
 const { project } = defineProps<{ project: Project }>();
 </script>
 
 <template>
     <div class="project">
-        <p>{{ formatDate(project.date) }}</p>
+        <p>{{ project.date }}</p>
         <div class="bullet">&#8226;</div>
         <div class="dash"></div>
         <div class="imgWrap">
@@ -19,7 +18,6 @@ const { project } = defineProps<{ project: Project }>();
 
 <style lang="scss" scoped>
 .project {
-    width: 100px;
     text-align: center;
     position: relative;
     .bullet {

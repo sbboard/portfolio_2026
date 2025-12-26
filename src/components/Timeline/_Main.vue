@@ -8,7 +8,9 @@ const { projects } = useProjects();
 <template>
     <div class="timeline">
         <div class="line"></div>
-        <ProjectMarker v-for="project in projects" :key="project.name" :project />
+        <div class="entryWrap">
+            <ProjectMarker class="entry" v-for="project in projects" :key="project.name" :project />
+        </div>
     </div>
 </template>
 
@@ -27,6 +29,12 @@ const { projects } = useProjects();
         position: absolute;
         top: calc(1em + calc(var(--dashHeight) / 2));
         left: calc(var(--imgSize) / 2);
+    }
+    .entryWrap {
+        display: flex;
+        .entry {
+            width: 100px;
+        }
     }
 }
 </style>
