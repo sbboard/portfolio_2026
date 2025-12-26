@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const container = ref<HTMLElement | null>(null);
 const scene = new THREE.Scene();
@@ -10,7 +10,6 @@ const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerH
 camera.position.set(0, 1.5, 5);
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.05;
@@ -109,53 +108,34 @@ function animate() {
 
 animate();
 
+function setRendererSize() {
+    if (!container.value) return;
+    const width = container.value.clientWidth;
+    const height = container.value.clientHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+}
+
 onMounted(() => {
     if (!container.value) return;
     container.value.appendChild(renderer.domElement);
+    setRendererSize();
+    window.addEventListener('resize', setRendererSize);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', setRendererSize);
 });
 </script>
 
 <template>
     <div ref="container" class="viewer"></div>
-    <svg width="0" height="0">
-        <defs>
-            <filter
-                id="dither"
-                color-interpolation-filters="sRGB"
-                x="0"
-                y="0"
-                width="100%"
-                height="100%"
-            >
-                <feImage
-                    width="4"
-                    height="4"
-                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAASElEQVR42gXBgQAAIAxFwW8QwhBCCCGEIYQQQgghhBBCCEMYwutOkphzYmbsvdG9l9YaEYG7o1or5xxKKay1UGYyxuC9R++dD7yGJkTj6F0HAAAAAElFTkSuQmCC"
-                ></feImage>
-                <feTile></feTile>
-                <feComposite
-                    operator="arithmetic"
-                    k1="4"
-                    k2="2.5"
-                    k3=".5"
-                    k4="-1.5"
-                    in="SourceGraphic"
-                ></feComposite>
-                <feComponentTransfer>
-                    <feFuncR type="discrete" tableValues="0 1"></feFuncR>
-                    <feFuncG type="discrete" tableValues="0 1"></feFuncG>
-                    <feFuncB type="discrete" tableValues="0 1"></feFuncB>
-                </feComponentTransfer>
-            </filter>
-        </defs>
-    </svg>
 </template>
 
 <style scoped>
 .viewer {
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
-    filter: url(#dither);
+    flex: 1;
 }
 </style>
