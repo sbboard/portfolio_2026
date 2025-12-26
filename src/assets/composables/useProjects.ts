@@ -17,7 +17,7 @@ export function useProjects() {
     const projects: Project[] = [
         {
             name: 'Salvaged Parts',
-            date: '5/22',
+            date: '05/22',
             description: 'Artsy web toy about an astronaut making music.',
             tech: ['Javascript'],
             image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',
@@ -26,7 +26,7 @@ export function useProjects() {
         },
         {
             name: 'Parker Kelly Website',
-            date: '2/18',
+            date: '02/18',
             description: 'Portfolio website for an advertising creative.',
             tech: ['HTML5', 'CSS3', 'Javascript', 'PHP', 'JQuery'],
             image: 'https://colinbuffum.com/img/parker.jpg',
@@ -34,7 +34,7 @@ export function useProjects() {
         },
         {
             name: 'PC-98 Emulation For Beginners',
-            date: '4/20',
+            date: '04/21',
             description: 'Tutorial website for getting started with PC-98 emulation.',
             tech: ['HTML5', 'CSS3'],
             image: 'https://gang-fight.com/assets/contentImages/pc982024.png',
@@ -51,16 +51,46 @@ export function useProjects() {
      * @returns Date object representing the extreme date
      */
     const getExtremeDate = (type: 'first' | 'last'): Date => {
-        if (!projects.length) return new Date();
-
         return projects.reduce((extreme, { date }) => {
-            const d = new Date(date);
+            const d = parseProjectDate(date);
             return type === 'first' ? (d < extreme ? d : extreme) : d > extreme ? d : extreme;
-        }, new Date(projects[0]!.date));
+        }, parseProjectDate(projects[0]!.date));
+    };
+
+    const parseProjectDate = (value: string): Date => {
+        const [month, year] = value.split('/').map(Number);
+        return new Date(2000 + (year || 0), (month || 0) - 1, 1);
+    };
+
+    /**
+     * Get an array of dates ranging from the earliest to the latest project date.
+     * @returns Array of all months between the earliest and latest project dates.
+     */
+    const getDateRange = (): string[] => {
+        const newest = getExtremeDate('last');
+        const oldest = getExtremeDate('first');
+        const result: string[] = [];
+
+        const current = new Date(newest);
+
+        while (current >= oldest) {
+            const month = String(current.getMonth() + 1).padStart(2, '0');
+            const year = String(current.getFullYear()).slice(-2);
+
+            result.push(`${month}/${year}`);
+            current.setMonth(current.getMonth() - 1);
+        }
+
+        return result;
+    };
+
+    const findProjectByDate = (date: string): Project | undefined => {
+        return projects.find(project => project.date === date);
     };
 
     return {
         projects,
-        getExtremeDate,
+        getDateRange,
+        findProjectByDate,
     };
 }

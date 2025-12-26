@@ -20,6 +20,10 @@ const { project } = defineProps<{ project: Project }>();
 .project {
     text-align: center;
     position: relative;
+    width: 100px;
+    white-space: initial;
+    cursor: pointer;
+    user-select: none;
     .bullet {
         font-size: 1.5em;
         line-height: 0;

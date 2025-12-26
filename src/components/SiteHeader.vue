@@ -73,6 +73,10 @@ header {
             justify-content: start;
             text-align: right;
         }
+        span {
+            cursor: pointer;
+            user-select: none;
+        }
     }
 }
 </style>
