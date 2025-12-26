@@ -37,6 +37,7 @@ main {
     font-optical-sizing: auto;
     font-style: normal;
     gap: var(--padding);
+    letter-spacing: 1px;
     a {
         color: var(--textColor);
         &:visited {
