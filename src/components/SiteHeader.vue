@@ -52,6 +52,7 @@ header {
             font-size: 1.25rem;
         }
         &.videoContainer {
+            border-radius: 8px;
             width: 125px;
             height: 125px;
             min-width: 150px;

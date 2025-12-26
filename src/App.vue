@@ -9,7 +9,9 @@ import TimeLine from './components/Timeline/_Main.vue';
 <template>
     <main>
         <SiteHeader />
-        <ThreeDeeTeeVee />
+        <div class="">
+            <ThreeDeeTeeVee />
+        </div>
         <TimeLine />
         <SiteFooter />
         <FilterSvg />
