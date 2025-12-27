@@ -12,7 +12,9 @@ import TimeLine from './components/Timeline/_Main.vue';
         <SiteHeader />
         <div class="content">
             <ThreeDeeTeeVee />
-            <ProjectViewer></ProjectViewer>
+            <Transition>
+                <ProjectViewer></ProjectViewer>
+            </Transition>
         </div>
         <TimeLine />
         <SiteFooter />
@@ -61,6 +63,24 @@ main {
             max-width: 50%;
             min-width: 50%;
             flex: 1;
+            &.v-enter-active,
+            &.v-leave-active {
+                min-width: 0%;
+                flex: unset;
+                width: unset;
+                transition: opacity 1s ease, width 1s ease;
+            }
+
+            &.v-enter-from,
+            &.v-leave-to {
+                opacity: 0;
+                width: 0%;
+            }
+            &.v-enter-to,
+            &.v-leave-from {
+                width: 50%;
+                opacity: 1;
+            }
         }
     }
 }
