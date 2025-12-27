@@ -54,6 +54,8 @@ main {
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        background-position: center;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23c7c7c7' stroke-width='1'/%3E%3C/svg%3E");
         & > div {
             width: 50%;
             max-width: 50%;
