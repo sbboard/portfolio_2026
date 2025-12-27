@@ -88,5 +88,26 @@ main {
             }
         }
     }
+
+    @media (max-width: 800px) {
+        .content {
+            flex-direction: column;
+            > div {
+                width: 100%;
+                max-width: 100%;
+                min-width: 100%;
+
+                &.v-enter-from,
+                &.v-leave-to {
+                    width: 100%;
+                }
+                &.v-enter-to,
+                &.v-leave-from {
+                    width: 100%;
+                    opacity: 1;
+                }
+            }
+        }
+    }
 }
 </style>
