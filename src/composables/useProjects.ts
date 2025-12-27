@@ -14,10 +14,11 @@ const projects: Project[] = [
         name: 'Salvaged Parts',
         date: '05/22',
         description: 'Artsy web toy about an astronaut making music.',
-        tech: ['Javascript'],
+        tech: ['Javascript', 'CSS3', 'HTML5'],
         image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',
         video: 'salvage.mp4',
         link: 'https://gang-fight.com/projects/salvaged_parts/',
+        repo: 'https://gang-fight.com/projects/salvaged_parts/',
     },
     {
         name: 'Portfolio',
@@ -26,6 +27,8 @@ const projects: Project[] = [
         tech: ['HTML5', 'CSS3', 'Javascript', 'PHP', 'JQuery'],
         image: 'https://colinbuffum.com/img/parker.jpg', //thumbnail should read "you are here V" like an airport map
         video: 'salvage.mp4',
+        link: 'https://gang-fight.com/projects/salvaged_parts/',
+        repo: 'https://gang-fight.com/projects/salvaged_parts/',
     },
     {
         name: 'PC-98 Emulation For Beginners',
