@@ -22,14 +22,17 @@ watch(
 const camera = new THREE.PerspectiveCamera(30, 0, 0.2, 10);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.05;
+renderer.toneMapping = THREE.NoToneMapping;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const baseColor = new THREE.TextureLoader().load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace;
 
 function setVideoMat(src: string) {
     if (!model) return;
+
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 0.05;
 
     const video = document.createElement('video');
     video.src = `/projectPreviews/${src}`;
@@ -61,17 +64,32 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
     scene.add(pivot);
 
     fbx.traverse(c => {
-        const child = c as THREE.Mesh;
-        if (!child.isMesh) return;
-        const mat = new THREE.MeshStandardMaterial({ map: baseColor });
+        if (!(c instanceof THREE.Mesh)) return;
 
-        child.material = mat;
+        const original = c;
 
-        if (child.geometry.attributes.uv2 || !child.geometry.attributes.uv) return;
-        child.geometry.setAttribute(
-            'uv2',
-            new THREE.BufferAttribute(child.geometry.attributes.uv.array, 2)
-        );
+        const solidMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            opacity: 0.75,
+            transparent: true,
+        });
+
+        const wireMat = new THREE.MeshBasicMaterial({
+            color: 0x878787,
+            wireframe: true,
+        });
+
+        // Clone the full mesh so we preserve transforms
+        const solidMesh = original.clone();
+        const wireMesh = original.clone();
+
+        solidMesh.material = solidMat;
+        wireMesh.material = wireMat;
+
+        original.parent!.add(solidMesh);
+        original.parent!.add(wireMesh);
+
+        original.visible = false;
     });
 
     const SCALE = 0.02;
