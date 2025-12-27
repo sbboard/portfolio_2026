@@ -36,7 +36,6 @@ async function copyWrapper(email: string) {
             </p>
         </div>
         <div class="contact">
-            <h2>Work With Me</h2>
             <div
                 class="email"
                 :class="{ copyFailed, copied }"
@@ -88,10 +87,11 @@ header {
             flex: 1;
             p {
                 max-width: 650px;
+                font-size: 0.9rem;
             }
         }
         &.contact {
-            justify-content: start;
+            justify-content: end;
             text-align: right;
         }
         .email {

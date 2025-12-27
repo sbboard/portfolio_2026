@@ -57,7 +57,7 @@ const projects: Project[] = [
         video: 'salvage.mp4',
     },
     {
-        name: 'Direqt Ad Portal',
+        name: 'Direqt AI Portal',
         date: '11/25',
         description: 'Artsy web toy about an astronaut making music.',
         tech: ['Javascript'],
