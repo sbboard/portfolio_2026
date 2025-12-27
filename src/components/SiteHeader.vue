@@ -5,6 +5,7 @@ import { copyToClipboard } from '@/utils/utils';
 import video from '@/assets/me.mp4';
 import { ref } from 'vue';
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import { TEXT_COLOR } from '@/utils/styleConfig';
 
 const copyFailed = ref(false);
 const copied = ref(false);
@@ -71,15 +72,16 @@ header {
             font-size: 1.25rem;
         }
         &.videoContainer {
-            border-radius: 8px;
             width: 125px;
             height: 125px;
             overflow: hidden;
             justify-content: center;
             flex-direction: row;
+            background-color: v-bind(TEXT_COLOR);
             video {
                 filter: url(#dither) contrast(1) grayscale(1);
                 height: 100%;
+                mix-blend-mode: screen;
             }
         }
         &.bio {
