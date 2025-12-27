@@ -27,24 +27,26 @@ async function copyWrapper(email: string) {
                 <source :src="video" type="video/mp4" />
             </video>
         </div>
-        <div class="bio">
-            <h1>Colin Buffum</h1>
-            <p>
-                Front-end engineer specializing in Vue and Nuxt, with experience building and
-                maintaining production web applications and interactive UI systems.<br />
-                Seeking a challenging role to contribute to creative web projects.
-            </p>
-        </div>
-        <div class="contact">
-            <div
-                class="email"
-                :class="{ copyFailed, copied }"
-                @click="copyWrapper('colin.buffum@gmail.com')"
-            >
-                <span ref="emailEl">colin.buffum@gmail.com</span>
-                <FontAwesomeIcon :icon="copied ? faClipboardCheck : faClipboard" />
+        <div class="infoContainer">
+            <div class="bio">
+                <h1>Colin Buffum</h1>
+                <p>
+                    Front-end engineer specializing in Vue and Nuxt, with experience building and
+                    maintaining production web applications and interactive UI systems.<br />
+                    Seeking a challenging role to contribute to creative web projects.
+                </p>
             </div>
-            <h2><a href="https://colinbuffum.com/resume.pdf" target="_blank">Resume</a></h2>
+            <div class="contact">
+                <div
+                    class="email"
+                    :class="{ copyFailed, copied }"
+                    @click="copyWrapper('colin.buffum@gmail.com')"
+                >
+                    <span ref="emailEl">colin.buffum@gmail.com</span>
+                    <FontAwesomeIcon :icon="copied ? faClipboardCheck : faClipboard" />
+                </div>
+                <h2><a href="https://colinbuffum.com/resume.pdf" target="_blank">Resume</a></h2>
+            </div>
         </div>
     </header>
 </template>
@@ -54,6 +56,7 @@ header {
     display: flex;
     flex-direction: row;
     gap: var(--padding);
+    font-size: 0.9rem;
     div {
         display: flex;
         flex-direction: column;
@@ -87,12 +90,12 @@ header {
             flex: 1;
             p {
                 max-width: 650px;
-                font-size: 0.9rem;
             }
         }
         &.contact {
             justify-content: end;
             text-align: right;
+            gap: 5px;
         }
         .email {
             cursor: pointer;
@@ -112,6 +115,28 @@ header {
             }
             &.copied {
                 animation: copy 1s ease-in-out forwards;
+            }
+        }
+    }
+    .infoContainer {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+    }
+    @media (max-width: 800px) {
+        div.videoContainer {
+            display: none;
+        }
+        .infoContainer {
+            flex-direction: column;
+            .bio {
+                h1 {
+                    font-size: 1.5rem;
+                }
+            }
+            .contact {
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     }
