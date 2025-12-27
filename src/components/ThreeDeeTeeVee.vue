@@ -19,17 +19,14 @@ watch(
     }
 );
 
-const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
-// Renderer
+const camera = new THREE.PerspectiveCamera(30, 0, 0.2, 10);
+
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.05;
 
-// Textures
-const loader = new FBXLoader();
-const textureLoader = new THREE.TextureLoader();
-const baseColor = textureLoader.load('/models/textures/DefaultMaterial_Base_color.jpg');
-baseColor.colorSpace = THREE.SRGBColorSpace; // Color texture
+const baseColor = new THREE.TextureLoader().load('/models/textures/DefaultMaterial_Base_color.jpg');
+baseColor.colorSpace = THREE.SRGBColorSpace;
 
 function setVideoMat(src: string) {
     if (!model) return;
@@ -59,7 +56,7 @@ function setVideoMat(src: string) {
 let model: THREE.Group;
 const baseRotation = new THREE.Euler();
 
-loader.load('/models/tv.fbx', fbx => {
+new FBXLoader().load('/models/tv.fbx', fbx => {
     const pivot = new THREE.Group();
     scene.add(pivot);
 
@@ -81,8 +78,7 @@ loader.load('/models/tv.fbx', fbx => {
     fbx.scale.set(SCALE, SCALE, SCALE);
 
     // Correct facing
-    fbx.rotation.y = -Math.PI / 2; // Adjust until front faces +Z
-    fbx.rotation.x = 0;
+    fbx.rotation.y = -Math.PI / 2.5; // Adjust until front faces +Z
 
     // Store base rotation
     baseRotation.copy(fbx.rotation);
@@ -90,7 +86,7 @@ loader.load('/models/tv.fbx', fbx => {
     const box = new THREE.Box3().setFromObject(fbx);
     const size = box.getSize(new THREE.Vector3());
 
-    camera.position.set(0, size.y * 0.6, 5); // height proportional to model
+    camera.position.set(0, size.y * 0.47, 5); // height proportional to model
 
     pivot.add(fbx);
     model = pivot;
