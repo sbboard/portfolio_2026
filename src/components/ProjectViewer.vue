@@ -15,8 +15,8 @@ const currentProject = computed(() => {
 </script>
 
 <template>
-    <div>
-        <div v-if="currentProject" class="project">
+    <div v-if="currentProject">
+        <div class="project">
             <div class="headerInfo">
                 <h2>{{ currentProject?.name }}</h2>
                 <h3>{{ currentProject?.date }}</h3>
