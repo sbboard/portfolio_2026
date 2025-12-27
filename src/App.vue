@@ -5,6 +5,11 @@ import SiteFooter from './components/SiteFooter.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import ThreeDeeTeeVee from './components/ThreeDeeTeeVee.vue';
 import TimeLine from './components/Timeline/_Main.vue';
+import { TEXT_COLOR, TEXT_COLOR_OPAQUE } from './utils/styleConfig';
+
+const grid = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23${TEXT_COLOR_OPAQUE.slice(
+    1
+)}' stroke-width='1'/%3E%3C/svg%3E")`;
 </script>
 
 <template>
@@ -27,8 +32,8 @@ import TimeLine from './components/Timeline/_Main.vue';
 
 main {
     --padding: 12px;
-    --textColor: #878787;
-    --textColorOpaque: #87878780;
+    --textColor: v-bind(TEXT_COLOR);
+    --textColorOpaque: v-bind(TEXT_COLOR_OPAQUE);
     max-height: 100vh;
     min-height: 100vh;
     overflow: hidden;
@@ -38,7 +43,7 @@ main {
     margin: 0 auto;
     padding: var(--padding);
     box-sizing: border-box;
-    color: #878787;
+    color: var(--textColor);
     font-family: 'Funnel Sans', sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -57,7 +62,7 @@ main {
         justify-content: center;
         align-items: center;
         background-position: center;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23c7c7c7' stroke-width='1'/%3E%3C/svg%3E");
+        background-image: v-bind(grid);
         & > div {
             width: 50%;
             max-width: 50%;

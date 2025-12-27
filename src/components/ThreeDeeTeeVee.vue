@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
+import { TEXT_COLOR } from '@/utils/styleConfig';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
@@ -31,9 +32,6 @@ baseColor.colorSpace = THREE.SRGBColorSpace;
 function setVideoMat(src: string) {
     if (!model) return;
 
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.05;
-
     const video = document.createElement('video');
     video.src = `/projectPreviews/${src}`;
     video.loop = true;
@@ -41,6 +39,8 @@ function setVideoMat(src: string) {
 
     // Wait for video to load before applying material
     video.addEventListener('canplay', () => {
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 0.05;
         const videoTexture = new THREE.VideoTexture(video);
         videoTexture.colorSpace = THREE.SRGBColorSpace;
         const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
@@ -75,7 +75,7 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
         });
 
         const wireMat = new THREE.MeshBasicMaterial({
-            color: 0x878787,
+            color: parseInt(TEXT_COLOR.slice(1), 16),
             wireframe: true,
         });
 
