@@ -20,10 +20,8 @@ watch(
 );
 
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 1.5, 5);
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.05;
 
@@ -90,15 +88,7 @@ loader.load('/models/tv.fbx', fbx => {
     baseRotation.copy(fbx.rotation);
 
     const box = new THREE.Box3().setFromObject(fbx);
-    const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
-
-    // Move model so center X/Z is at 0
-    fbx.position.x -= center.x;
-    fbx.position.z -= center.z;
-
-    // Move model so bottom sits at Y = 0
-    fbx.position.y -= box.min.y;
 
     camera.position.set(0, size.y * 0.6, 5); // height proportional to model
 
