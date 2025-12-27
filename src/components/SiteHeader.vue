@@ -3,6 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 import { copyToClipboard } from '@/utils/utils';
 import video from '@/assets/me.mp4';
+import { ref } from 'vue';
+
+const copyFailed = ref(false);
+const copied = ref(false);
+
+async function copyWrapper(email: string) {
+    if (copyFailed.value) return;
+    const success = await copyToClipboard(email);
+    if (success) {
+        copied.value = false;
+        requestAnimationFrame(() => (copied.value = true));
+    } else copyFailed.value = true;
+}
 </script>
 
 <template>
@@ -22,9 +35,14 @@ import video from '@/assets/me.mp4';
         </div>
         <div class="contact">
             <h2>Work With Me</h2>
-            <span @click="copyToClipboard('colin.buffum@gmail.com')"
-                >colin.buffum@gmail.com <FontAwesomeIcon :icon="faClipboard"
-            /></span>
+            <div
+                class="email"
+                :class="{ copyFailed, copied }"
+                @click="copyWrapper('colin.buffum@gmail.com')"
+            >
+                <span ref="emailEl">colin.buffum@gmail.com</span>
+                <FontAwesomeIcon :icon="faClipboard" />
+            </div>
             <h2><a href="https://colinbuffum.com/resume.pdf" target="_blank">Resume</a></h2>
         </div>
     </header>
@@ -73,10 +91,35 @@ header {
             justify-content: start;
             text-align: right;
         }
-        span {
+        .email {
             cursor: pointer;
             user-select: none;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0;
+            span {
+                padding: 5px;
+                display: block;
+            }
+            &.copyFailed {
+                cursor: text;
+                user-select: text;
+            }
+            &.copied {
+                animation: copy 1s ease-in-out forwards;
+            }
         }
+    }
+}
+
+@keyframes copy {
+    0% {
+        background-color: #c7c7c7;
+    }
+    100% {
+        background-color: white;
     }
 }
 </style>
