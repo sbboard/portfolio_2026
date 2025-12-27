@@ -20,11 +20,11 @@ const projects: Project[] = [
         link: 'https://gang-fight.com/projects/salvaged_parts/',
     },
     {
-        name: 'Parker Kelly Website',
-        date: '02/18',
+        name: 'Portfolio',
+        date: '01/26',
         description: 'Portfolio website for an advertising creative.',
         tech: ['HTML5', 'CSS3', 'Javascript', 'PHP', 'JQuery'],
-        image: 'https://colinbuffum.com/img/parker.jpg',
+        image: 'https://colinbuffum.com/img/parker.jpg', //thumbnail should read "you are here V" like an airport map
         video: 'salvage.mp4',
     },
     {
@@ -71,7 +71,7 @@ const projects: Project[] = [
     },
     {
         name: 'Splash Screen',
-        date: '05/23', //unsure
+        date: '01/23',
         description: 'Artsy web toy about an astronaut making music.',
         tech: ['Javascript'],
         image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',
@@ -182,7 +182,7 @@ const projects: Project[] = [
         video: 'salvage.mp4',
     },
     {
-        name: 'Gang Fight',
+        name: 'Gang Fight V2',
         date: '09/24',
         description: 'Artsy web toy about an astronaut making music.',
         tech: ['Javascript'],
@@ -207,15 +207,7 @@ const projects: Project[] = [
     },
     {
         name: 'PC-98 Bot (Bsky)',
-        date: '05/24',
-        description: 'Artsy web toy about an astronaut making music.',
-        tech: ['Javascript'],
-        image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',
-        video: 'salvage.mp4',
-    },
-    {
-        name: 'Xenoblade Chronicles 2 Team Builder',
-        date: '03/18',
+        date: '10/23',
         description: 'Artsy web toy about an astronaut making music.',
         tech: ['Javascript'],
         image: 'https://gang-fight.com/assets/contentImages/salvage.jpg',

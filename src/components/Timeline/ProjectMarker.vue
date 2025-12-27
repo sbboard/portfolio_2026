@@ -22,7 +22,7 @@ const projectStore = useProjectStore();
 .project {
     text-align: center;
     position: relative;
-    width: 100px;
+    width: 85px;
     white-space: initial;
     cursor: pointer;
     user-select: none;
