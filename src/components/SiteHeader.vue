@@ -4,6 +4,7 @@ import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 import { copyToClipboard } from '@/utils/utils';
 import video from '@/assets/me.mp4';
 import { ref } from 'vue';
+import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 
 const copyFailed = ref(false);
 const copied = ref(false);
@@ -41,7 +42,7 @@ async function copyWrapper(email: string) {
                 @click="copyWrapper('colin.buffum@gmail.com')"
             >
                 <span ref="emailEl">colin.buffum@gmail.com</span>
-                <FontAwesomeIcon :icon="faClipboard" />
+                <FontAwesomeIcon :icon="copied ? faClipboardCheck : faClipboard" />
             </div>
             <h2><a href="https://colinbuffum.com/resume.pdf" target="_blank">Resume</a></h2>
         </div>
