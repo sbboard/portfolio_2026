@@ -12,7 +12,11 @@ const projectStore = useProjectStore();
         <div class="bullet">&#8226;</div>
         <div class="dash"></div>
         <div class="imgWrap">
-            <img :src="project.image" :alt="`${project.name} Thumbnail`" />
+            <img v-if="project.image" :src="project.image" :alt="`${project.name} Thumbnail`" />
+            <span v-else-if="project.name === 'Portfolio'" style="padding-top: 1em"
+                >You Are Here<br />&#9660;</span
+            >
+            <span v-else>{{ project.name }}</span>
         </div>
         <h3>{{ project.name }}</h3>
     </div>
@@ -45,6 +49,12 @@ const projectStore = useProjectStore();
         border-radius: 100%;
         border: 1px solid var(--textColor);
         margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75em;
+        color: white;
+        background-color: var(--textColor);
         img {
             min-width: 100%;
             min-height: 100%;
