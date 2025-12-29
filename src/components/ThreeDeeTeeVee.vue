@@ -34,7 +34,7 @@ function setVideoMat(src: string) {
     if (!model) return;
 
     const video = document.createElement('video');
-    video.src = `/projectPreviews/${src}`;
+    video.src = `/models/textures/${src}`;
     video.loop = true;
     video.muted = true;
 
