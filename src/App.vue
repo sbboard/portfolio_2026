@@ -63,6 +63,7 @@ main {
         align-items: center;
         background-position: center;
         background-image: v-bind(grid);
+        overflow: hidden;
         & > div {
             width: 50%;
             max-width: 50%;
