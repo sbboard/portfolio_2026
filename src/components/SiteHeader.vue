@@ -127,6 +127,10 @@ header {
         div.videoContainer {
             display: none;
         }
+        div .email {
+            border: 1px solid var(--textColorOpaque);
+            border-radius: 10px;
+        }
         .infoContainer {
             flex-direction: column;
             .bio {
@@ -137,6 +141,7 @@ header {
             .contact {
                 flex-direction: row;
                 justify-content: space-between;
+                flex-wrap: wrap;
             }
         }
     }

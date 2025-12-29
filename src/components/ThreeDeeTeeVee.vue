@@ -17,6 +17,7 @@ watch(
         const project = findProjectByDate(newProject);
         if (!newProject || !project) return;
         setVideoMat(project.video || '');
+        requestAnimationFrame(setRendererSize);
     }
 );
 

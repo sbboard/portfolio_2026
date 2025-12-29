@@ -41,7 +41,7 @@ const currentProject = computed(() => {
 <style lang="scss" scoped>
 .project {
     background-color: white;
-    width: 400px;
+    max-width: 400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -63,6 +63,13 @@ const currentProject = computed(() => {
     .links {
         text-align: right;
         a {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        font-size: 1em;
+        .headerInfo {
             font-size: 1.5rem;
         }
     }
