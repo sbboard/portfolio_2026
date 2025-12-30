@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
-import { TEXT_COLOR } from '@/utils/styleConfig';
+import { getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
@@ -76,7 +76,7 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
         });
 
         const wireMat = new THREE.MeshBasicMaterial({
-            color: parseInt(TEXT_COLOR.slice(1), 16),
+            color: getRawHexColor(TEXT_COLOR, true),
             wireframe: true,
         });
 

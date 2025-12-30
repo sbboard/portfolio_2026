@@ -39,8 +39,14 @@ const projects: Project[] = [
         image: '/projectThumbs/bean.jpg',
     },
     {
-        name: 'Direqt Search',
+        name: 'Direqt Search Dashboard',
         date: '03/25',
+        description: 'Artsy web toy about an astronaut making music.',
+        tech: ['Vue 3', 'Typescript', 'SCSS'],
+    },
+    {
+        name: 'Direqt Search',
+        date: '11/24',
         description: 'Artsy web toy about an astronaut making music.',
         tech: ['Vue 3', 'Typescript', 'SCSS'],
     },
