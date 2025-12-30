@@ -128,8 +128,11 @@ const projects: Project[] = [
     {
         name: 'Curiosity Museum Exhibit Prototype',
         date: '05/20',
-        description: 'Artsy web toy about an astronaut making music.',
-        tech: ['Javascript'],
+        description:
+            "Physical interactive exhibit prototype built in collaboration with Utah's Museum of Natural Curiosity. Aimed to teach museum patrons about sorting trash using technology.",
+        tech: ['Python'],
+        repo: 'https://github.com/echohatch1/NFC-Video-Launcher',
+        image: '/projectThumbs/curio.jpg',
     },
     {
         name: 'Gang Picross',
