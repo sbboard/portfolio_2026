@@ -16,7 +16,25 @@ watch(
     newProject => {
         const project = findProjectByDate(newProject);
         if (!newProject || !project) return;
-        setVideoMat(project.video || '');
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 0.05;
+        if (project.video) {
+            setVideoMat(project.video || '');
+        } else {
+            model.traverse(c => {
+                const child = c as THREE.Mesh;
+                if (!child.isMesh) return;
+                const mat = new THREE.MeshStandardMaterial({ map: baseColor });
+
+                child.material = mat;
+
+                if (child.geometry.attributes.uv2 || !child.geometry.attributes.uv) return;
+                child.geometry.setAttribute(
+                    'uv2',
+                    new THREE.BufferAttribute(child.geometry.attributes.uv.array, 2)
+                );
+            });
+        }
         requestAnimationFrame(setRendererSize);
     }
 );
@@ -40,8 +58,6 @@ function setVideoMat(src: string) {
 
     // Wait for video to load before applying material
     video.addEventListener('canplay', () => {
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 0.05;
         const videoTexture = new THREE.VideoTexture(video);
         videoTexture.colorSpace = THREE.SRGBColorSpace;
         const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
