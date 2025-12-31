@@ -16,25 +16,14 @@ watch(
     newProject => {
         const project = findProjectByDate(newProject);
         if (!newProject || !project) return;
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 0.05;
-        if (project.video) {
-            setVideoMat(project.video || '');
-        } else {
-            model.traverse(c => {
-                const child = c as THREE.Mesh;
-                if (!child.isMesh) return;
-                const mat = new THREE.MeshStandardMaterial({ map: baseColor });
-
-                child.material = mat;
-
-                if (child.geometry.attributes.uv2 || !child.geometry.attributes.uv) return;
-                child.geometry.setAttribute(
-                    'uv2',
-                    new THREE.BufferAttribute(child.geometry.attributes.uv.array, 2)
-                );
-            });
+        if (!videoElement.value) {
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 0.05;
+            videoElement.value = document.createElement('video');
+            videoElement.value.loop = true;
+            videoElement.value.muted = true;
         }
+        setVideoMat(project.video || 'static.mp4');
         requestAnimationFrame(setRendererSize);
     }
 );
@@ -48,28 +37,31 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 const baseColor = new THREE.TextureLoader().load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace;
 
+const videoElement = ref<HTMLVideoElement | null>(null);
 function setVideoMat(src: string) {
-    if (!model) return;
+    if (!model || !videoElement.value) return;
 
-    const video = document.createElement('video');
-    video.src = `/models/textures/${src}`;
-    video.loop = true;
-    video.muted = true;
+    videoElement.value.pause();
 
+    videoElement.value.src = `/models/textures/${src}`;
     // Wait for video to load before applying material
-    video.addEventListener('canplay', () => {
-        const videoTexture = new THREE.VideoTexture(video);
-        videoTexture.colorSpace = THREE.SRGBColorSpace;
-        const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
+    videoElement.value.addEventListener(
+        'canplay',
+        () => {
+            const videoTexture = new THREE.VideoTexture(videoElement.value);
+            videoTexture.colorSpace = THREE.SRGBColorSpace;
+            const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
 
-        model.traverse(child => {
-            const mesh = child as THREE.Mesh;
-            if (!mesh.isMesh) return;
-            mesh.material = videoMat;
-        });
-    });
+            model.traverse(child => {
+                const mesh = child as THREE.Mesh;
+                if (!mesh.isMesh) return;
+                mesh.material = videoMat;
+            });
+        },
+        { once: true }
+    );
 
-    video.play();
+    videoElement.value.play();
 }
 
 // Model & pivot
