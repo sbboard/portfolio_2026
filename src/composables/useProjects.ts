@@ -61,6 +61,8 @@ const projects: Project[] = [
         description:
             'AI powered ad widget that focused on engaging users with interactive content, such as chat and polls.',
         tech: ['Vue 3', 'Typescript', 'SCSS'],
+        image: '/projectThumbs/ad.jpg',
+        video: 'direqt_ad.mp4',
     },
     {
         name: 'Direqt Webchat',
