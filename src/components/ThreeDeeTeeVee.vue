@@ -30,20 +30,44 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 const baseColor = new THREE.TextureLoader().load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace;
 
+// Video element and controls
+const videoElement = ref<HTMLVideoElement | null>(null);
+const videoScale = ref(0.2); // Scale: 0.1 to 5.0 (smaller = zoomed out, larger = zoomed in)
+const videoOffsetX = ref(1.75); // Horizontal offset: -1.0 to 1.0 (negative = left, positive = right)
+const videoOffsetY = ref(2); // Vertical offset: -1.0 to 1.0 (negative = down, positive = up)
+
 function setTextureMat(src: string) {
     if (!model) return;
+
+    // Create video element if it doesn't exist
+    if (!videoElement.value) {
+        videoElement.value = document.createElement('video');
+        videoElement.value.loop = true;
+        videoElement.value.muted = true;
+        videoElement.value.crossOrigin = 'anonymous';
+        videoElement.value.src = '/models/textures/static_raw.mp4';
+        videoElement.value.play();
+    }
 
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load(`/models/textures/${src}`, texture => {
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        // Create custom shader material for chroma keying
+        // Create video texture
+        const videoTexture = new THREE.VideoTexture(videoElement.value!);
+        videoTexture.colorSpace = THREE.SRGBColorSpace;
+
+        // Create custom shader material for chroma keying with video
         const chromaKeyMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 map: { value: texture },
+                videoMap: { value: videoTexture },
                 keyColor: { value: new THREE.Color(0x1eff00) }, // #1eff00
                 threshold: { value: 0.4 },
-                smoothing: { value: 0.1 },
+                smoothing: { value: 0 },
+                videoScale: { value: videoScale.value },
+                videoOffsetX: { value: videoOffsetX.value },
+                videoOffsetY: { value: videoOffsetY.value },
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -54,21 +78,36 @@ function setTextureMat(src: string) {
             `,
             fragmentShader: `
                 uniform sampler2D map;
+                uniform sampler2D videoMap;
                 uniform vec3 keyColor;
                 uniform float threshold;
                 uniform float smoothing;
+                uniform float videoScale;
+                uniform float videoOffsetX;
+                uniform float videoOffsetY;
                 varying vec2 vUv;
                 
                 void main() {
                     vec4 texColor = texture2D(map, vUv);
-                    float chromaDist = distance(texColor.rgb, keyColor);
                     
+                    // 90-degree clockwise rotation: (x,y) -> (1-y, x)
+                    vec2 rotatedUV = vec2(vUv.y, 1.0 - vUv.x);
+                    
+                    // Scale and position video
+                    vec2 videoUV = (rotatedUV - 0.5) / videoScale + 0.5 + vec2(videoOffsetX, videoOffsetY);
+                    
+                    vec4 videoColor = texture2D(videoMap, videoUV);
+                    
+                    float chromaDist = distance(texColor.rgb, keyColor);
                     float alpha = smoothstep(threshold, threshold + smoothing, chromaDist);
                     
-                    gl_FragColor = vec4(texColor.rgb, texColor.a * alpha);
+                    // Mix video in keyed areas, original texture elsewhere
+                    vec3 finalColor = mix(videoColor.rgb, texColor.rgb, alpha);
+                    
+                    gl_FragColor = vec4(finalColor, 1.0);
                 }
             `,
-            transparent: true,
+            transparent: false,
         });
 
         model.traverse(child => {
