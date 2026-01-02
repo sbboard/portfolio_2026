@@ -16,14 +16,7 @@ watch(
     newProject => {
         const project = findProjectByDate(newProject);
         if (!newProject || !project) return;
-        if (!videoElement.value) {
-            renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 0.05;
-            videoElement.value = document.createElement('video');
-            videoElement.value.loop = true;
-            videoElement.value.muted = true;
-        }
-        setVideoMat(project.video || 'static.mp4');
+        setTextureMat('greenscreen.jpg');
         requestAnimationFrame(setRendererSize);
     }
 );
@@ -37,31 +30,53 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 const baseColor = new THREE.TextureLoader().load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace;
 
-const videoElement = ref<HTMLVideoElement | null>(null);
-function setVideoMat(src: string) {
-    if (!model || !videoElement.value) return;
+function setTextureMat(src: string) {
+    if (!model) return;
 
-    videoElement.value.pause();
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(`/models/textures/${src}`, texture => {
+        texture.colorSpace = THREE.SRGBColorSpace;
 
-    videoElement.value.src = `/models/textures/${src}`;
-    // Wait for video to load before applying material
-    videoElement.value.addEventListener(
-        'canplay',
-        () => {
-            const videoTexture = new THREE.VideoTexture(videoElement.value);
-            videoTexture.colorSpace = THREE.SRGBColorSpace;
-            const videoMat = new THREE.MeshStandardMaterial({ map: videoTexture });
+        // Create custom shader material for chroma keying
+        const chromaKeyMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                map: { value: texture },
+                keyColor: { value: new THREE.Color(0x1eff00) }, // #1eff00
+                threshold: { value: 0.4 },
+                smoothing: { value: 0.1 },
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform sampler2D map;
+                uniform vec3 keyColor;
+                uniform float threshold;
+                uniform float smoothing;
+                varying vec2 vUv;
+                
+                void main() {
+                    vec4 texColor = texture2D(map, vUv);
+                    float chromaDist = distance(texColor.rgb, keyColor);
+                    
+                    float alpha = smoothstep(threshold, threshold + smoothing, chromaDist);
+                    
+                    gl_FragColor = vec4(texColor.rgb, texColor.a * alpha);
+                }
+            `,
+            transparent: true,
+        });
 
-            model.traverse(child => {
-                const mesh = child as THREE.Mesh;
-                if (!mesh.isMesh) return;
-                mesh.material = videoMat;
-            });
-        },
-        { once: true }
-    );
-
-    videoElement.value.play();
+        model.traverse(child => {
+            const mesh = child as THREE.Mesh;
+            if (!mesh.isMesh) return;
+            mesh.material = chromaKeyMaterial;
+        });
+    });
 }
 
 // Model & pivot
