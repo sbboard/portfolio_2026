@@ -46,7 +46,9 @@ const projects: Project[] = [
         description: 'Dashboard for managing Direqt Search settings and analytics.',
         tech: ['Vue 3', 'Typescript', 'SCSS'],
         image: '/projectThumbs/dash.jpg',
+        video: 'dashboard.mp4',
     },
+
     {
         name: 'Direqt Search',
         date: '11/24',
@@ -62,7 +64,7 @@ const projects: Project[] = [
             'AI powered ad widget that focused on engaging users with interactive content, such as chat and polls.',
         tech: ['Vue 3', 'Typescript', 'SCSS'],
         image: '/projectThumbs/ad.jpg',
-        video: 'direqt_ad.mp4',
+        video: 'ad.mp4',
     },
     {
         name: 'Direqt Webchat',

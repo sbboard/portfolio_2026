@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
-import { getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
+import { CHROMA_COLOR, getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
@@ -11,12 +11,25 @@ const { findProjectByDate } = useProjects();
 const container = ref<HTMLElement | null>(null);
 const scene = new THREE.Scene();
 
+// Video element and controls
+const videoElement = ref<HTMLVideoElement | null>(null);
+const videoScale = ref(0.2); // Scale: 0.1 to 5.0 (smaller = zoomed out, larger = zoomed in)
+const videoOffsetX = ref(1.75); // Horizontal offset: -1.0 to 1.0 (negative = left, positive = right)
+const videoOffsetY = ref(2); // Vertical offset: -1.0 to 1.0 (negative = down, positive = up)
+
 watch(
     () => projectStore.currentProjectDate,
     newProject => {
         const project = findProjectByDate(newProject);
         if (!newProject || !project) return;
-        setTextureMat('greenscreen.jpg');
+
+        // Create video element if it doesn't exist
+        if (!videoElement.value) {
+            videoElement.value = document.createElement('video');
+            videoElement.value.loop = true;
+            videoElement.value.muted = true;
+        }
+        setTextureMat(project.video || 'static_raw.mp4');
         requestAnimationFrame(setRendererSize);
     }
 );
@@ -30,27 +43,20 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 const baseColor = new THREE.TextureLoader().load('/models/textures/DefaultMaterial_Base_color.jpg');
 baseColor.colorSpace = THREE.SRGBColorSpace;
 
-// Video element and controls
-const videoElement = ref<HTMLVideoElement | null>(null);
-const videoScale = ref(0.2); // Scale: 0.1 to 5.0 (smaller = zoomed out, larger = zoomed in)
-const videoOffsetX = ref(1.75); // Horizontal offset: -1.0 to 1.0 (negative = left, positive = right)
-const videoOffsetY = ref(2); // Vertical offset: -1.0 to 1.0 (negative = down, positive = up)
-
 function setTextureMat(src: string) {
-    if (!model) return;
+    if (!model || !videoElement.value) return;
 
-    // Create video element if it doesn't exist
-    if (!videoElement.value) {
-        videoElement.value = document.createElement('video');
-        videoElement.value.loop = true;
-        videoElement.value.muted = true;
-        videoElement.value.crossOrigin = 'anonymous';
-        videoElement.value.src = '/models/textures/static_raw.mp4';
-        videoElement.value.play();
-    }
+    videoElement.value.src = `/models/textures/${src}`;
+    videoElement.value.addEventListener(
+        'canplay',
+        () => {
+            videoElement.value!.play();
+        },
+        { once: true }
+    );
 
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(`/models/textures/${src}`, texture => {
+    textureLoader.load(`/models/textures/greenscreen.jpg`, texture => {
         texture.colorSpace = THREE.SRGBColorSpace;
 
         // Create video texture
@@ -62,7 +68,7 @@ function setTextureMat(src: string) {
             uniforms: {
                 map: { value: texture },
                 videoMap: { value: videoTexture },
-                keyColor: { value: new THREE.Color(0x1eff00) }, // #1eff00
+                keyColor: { value: new THREE.Color(getRawHexColor(CHROMA_COLOR, true)) }, // #1eff00
                 threshold: { value: 0.4 },
                 smoothing: { value: 0 },
                 videoScale: { value: videoScale.value },
