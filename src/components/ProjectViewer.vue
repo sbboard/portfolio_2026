@@ -21,7 +21,11 @@ const currentProject = computed(() => {
                 <h2>{{ currentProject?.name }}</h2>
                 <h3>{{ currentProject?.date }}</h3>
             </div>
-            <p>{{ currentProject?.description }}</p>
+            <ul>
+                <li v-for="(line, index) in currentProject?.description" :key="index">
+                    {{ line }}
+                </li>
+            </ul>
             <div class="tech">
                 <strong>Technologies Used:</strong>
                 {{ currentProject?.tech.join(', ') }}
@@ -41,8 +45,8 @@ const currentProject = computed(() => {
 <style lang="scss" scoped>
 .project {
     background-color: white;
-    max-width: 400px;
     margin: 0 auto;
+    margin-right: var(--padding);
     display: flex;
     flex-direction: column;
     gap: var(--padding);
@@ -65,6 +69,11 @@ const currentProject = computed(() => {
         a {
             font-size: 1.5rem;
         }
+    }
+
+    ul {
+        padding-left: 1.2em;
+        list-style-type: disc;
     }
 
     @media (max-width: 500px) {
