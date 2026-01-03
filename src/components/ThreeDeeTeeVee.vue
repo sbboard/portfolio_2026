@@ -14,8 +14,10 @@ const scene = new THREE.Scene();
 // Video element and controls
 const videoElement = ref<HTMLVideoElement | null>(null);
 const videoScale = ref(0.2); // Scale: 0.1 to 5.0 (smaller = zoomed out, larger = zoomed in)
-const videoOffsetX = ref(1.75); // Horizontal offset: -1.0 to 1.0 (negative = left, positive = right)
-const videoOffsetY = ref(2); // Vertical offset: -1.0 to 1.0 (negative = down, positive = up)
+const videoScaleX = ref(1.4); // X-axis scale: 0.1 to 5.0 (for aspect ratio adjustment)
+const videoScaleY = ref(1.0); // Y-axis scale: 0.1 to 5.0 (for aspect ratio adjustment)
+const videoOffsetX = ref(1.3); // Horizontal offset: -1.0 to 1.0 (negative = left, positive = right)
+const videoOffsetY = ref(1.9); // Vertical offset: -1.0 to 1.0 (negative = down, positive = up)
 
 watch(
     () => projectStore.currentProjectDate,
@@ -72,6 +74,8 @@ function setTextureMat(src: string) {
                 threshold: { value: 0.4 },
                 smoothing: { value: 0 },
                 videoScale: { value: videoScale.value },
+                videoScaleX: { value: videoScaleX.value },
+                videoScaleY: { value: videoScaleY.value },
                 videoOffsetX: { value: videoOffsetX.value },
                 videoOffsetY: { value: videoOffsetY.value },
             },
@@ -89,6 +93,8 @@ function setTextureMat(src: string) {
                 uniform float threshold;
                 uniform float smoothing;
                 uniform float videoScale;
+                uniform float videoScaleX;
+                uniform float videoScaleY;
                 uniform float videoOffsetX;
                 uniform float videoOffsetY;
                 varying vec2 vUv;
@@ -99,8 +105,8 @@ function setTextureMat(src: string) {
                     // 90-degree clockwise rotation: (x,y) -> (1-y, x)
                     vec2 rotatedUV = vec2(vUv.y, 1.0 - vUv.x);
                     
-                    // Scale and position video
-                    vec2 videoUV = (rotatedUV - 0.5) / videoScale + 0.5 + vec2(videoOffsetX, videoOffsetY);
+                    // Scale and position video with separate X/Y scaling for aspect ratio control
+                    vec2 videoUV = (rotatedUV - 0.5) / vec2(videoScaleX, videoScaleY) / videoScale + 0.5 + vec2(videoOffsetX, videoOffsetY);
                     
                     vec4 videoColor = texture2D(videoMap, videoUV);
                     
