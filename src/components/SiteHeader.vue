@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 import { copyToClipboard } from '@/utils/utils';
-import video from '@/assets/me.mp4';
+import me from '@/assets/me.jpg';
 import { ref } from 'vue';
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 import { TEXT_COLOR } from '@/utils/styleConfig';
@@ -23,9 +23,7 @@ async function copyWrapper(email: string) {
 <template>
     <header>
         <div class="videoContainer">
-            <video autoplay muted loop playsinline>
-                <source :src="video" type="video/mp4" />
-            </video>
+            <img :src="me" alt="Colin Buffum" />
         </div>
         <div class="infoContainer">
             <div class="bio">
@@ -80,7 +78,7 @@ header {
             justify-content: center;
             flex-direction: row;
             background-color: v-bind(TEXT_COLOR);
-            video {
+            img {
                 filter: url(#dither) contrast(1) grayscale(1);
                 height: 100%;
                 mix-blend-mode: screen;
