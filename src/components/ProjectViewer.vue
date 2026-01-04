@@ -60,6 +60,7 @@ const currentProject = computed(() => {
         }
     }
     .tech {
+        padding-bottom: 2px;
         strong {
             font-weight: bold;
         }
@@ -74,6 +75,11 @@ const currentProject = computed(() => {
     ul {
         padding-left: 1.2em;
         list-style-type: disc;
+    }
+
+    @media (max-width: 800px) {
+        margin-left: var(--padding);
+        margin-bottom: var(--padding);
     }
 
     @media (max-width: 500px) {

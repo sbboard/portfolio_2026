@@ -136,6 +136,14 @@ function setTextureMat(src: string) {
 let model: THREE.Group;
 const baseRotation = new THREE.Euler();
 
+// Mobile touch interaction
+let isDragging = false;
+let lastTouchX = 0;
+let lastTouchY = 0;
+let currentRotationX = 0;
+let currentRotationY = 0;
+let animationId: number | null = null;
+
 new FBXLoader().load('/models/tv.fbx', fbx => {
     const pivot = new THREE.Group();
     scene.add(pivot);
@@ -189,19 +197,88 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
 
 // Mouse tracking
 const mouse = new THREE.Vector2();
-window.addEventListener('mousemove', e => {
+
+// Desktop mouse tracking
+function handleMouseMove(e: MouseEvent) {
     if (mobile.isMobileDevice.value) return;
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-});
+}
+
+// Mobile touch handlers
+function handleTouchStart(e: TouchEvent) {
+    if (!mobile.isMobileDevice.value) return;
+    e.preventDefault();
+    isDragging = true;
+    const touch = e.touches[0];
+    if (!touch) return;
+    lastTouchX = touch.clientX;
+    lastTouchY = touch.clientY;
+
+    if (!animationId) return;
+    cancelAnimationFrame(animationId);
+    animationId = null;
+}
+
+function handleTouchMove(e: TouchEvent) {
+    if (!mobile.isMobileDevice.value || !isDragging) return;
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    if (!touch) return;
+    const deltaX = touch.clientX - lastTouchX;
+    const deltaY = touch.clientY - lastTouchY;
+
+    // Convert touch movement to rotation
+    currentRotationY += deltaX * 0.005;
+    currentRotationX += deltaY * 0.005;
+
+    currentRotationX = Math.max(-0.5, Math.min(0.5, currentRotationX));
+
+    lastTouchX = touch.clientX;
+    lastTouchY = touch.clientY;
+}
+
+function handleTouchEnd(e: TouchEvent) {
+    if (!mobile.isMobileDevice.value) return;
+    e.preventDefault();
+    isDragging = false;
+
+    const animate = () => {
+        const lerpFactor = 0.05; // Smooth return animation
+
+        currentRotationX = THREE.MathUtils.lerp(currentRotationX, 0, lerpFactor);
+        currentRotationY = THREE.MathUtils.lerp(currentRotationY, 0, lerpFactor);
+
+        // Continue animation if not close enough to base
+        if (Math.abs(currentRotationX) > 0.001 || Math.abs(currentRotationY) > 0.001) {
+            animationId = requestAnimationFrame(animate);
+        } else {
+            currentRotationX = 0;
+            currentRotationY = 0;
+            animationId = null;
+        }
+    };
+
+    animationId = requestAnimationFrame(animate);
+}
 
 function animate() {
     requestAnimationFrame(animate);
     if (!model) return;
     const fbx = model.children[0];
     if (!fbx) return;
-    fbx.rotation.y = baseRotation.y + mouse.x * 0.5;
-    fbx.rotation.x = baseRotation.x + mouse.y * -0.3;
+
+    if (mobile.isMobileDevice.value) {
+        // Use touch-based rotation on mobile
+        fbx.rotation.y = baseRotation.y + currentRotationY;
+        fbx.rotation.x = baseRotation.x + currentRotationX;
+    } else {
+        // Use mouse-based rotation on desktop
+        fbx.rotation.y = baseRotation.y + mouse.x * 0.5;
+        fbx.rotation.x = baseRotation.x + mouse.y * -0.3;
+    }
+
     renderer.render(scene, camera);
 }
 
@@ -211,7 +288,7 @@ function setRendererSize() {
     const height = container.value.clientHeight;
     renderer.setSize(width, height);
     camera.aspect = width / height;
-    camera.fov = mobile.isMobile.value ? 50 : 30;
+    camera.fov = mobile.isMobile.value ? 40 : 30;
     camera.updateProjectionMatrix();
 }
 
@@ -220,11 +297,23 @@ onMounted(() => {
     container.value.appendChild(renderer.domElement);
     setRendererSize();
     window.addEventListener('resize', setRendererSize);
+    window.addEventListener('mousemove', handleMouseMove);
+    container.value.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.value.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.value.addEventListener('touchend', handleTouchEnd, { passive: false });
     animate();
 });
 
 onUnmounted(() => {
     window.removeEventListener('resize', setRendererSize);
+    window.removeEventListener('mousemove', handleMouseMove);
+    container.value?.removeEventListener('touchstart', handleTouchStart);
+    container.value?.removeEventListener('touchmove', handleTouchMove);
+    container.value?.removeEventListener('touchend', handleTouchEnd);
+
+    if (animationId) {
+        cancelAnimationFrame(animationId);
+    }
 });
 </script>
 
