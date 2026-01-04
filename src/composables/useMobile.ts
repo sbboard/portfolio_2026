@@ -8,15 +8,18 @@ const BREAKPOINT = 550;
  */
 export function useMobile() {
     const isMobile = ref(false);
+    const isMobileWidth = () => window.innerWidth <= BREAKPOINT;
 
     const checkMobile = () => {
-        const isNarrowScreen = window.innerWidth <= BREAKPOINT;
-        const isMobileUserAgent =
-            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                navigator.userAgent
-            );
-
-        isMobile.value = isNarrowScreen || isMobileUserAgent;
+        try {
+            const isMobileUserAgent =
+                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                    navigator.userAgent
+                );
+            isMobile.value = isMobileWidth() || isMobileUserAgent;
+        } catch {
+            isMobile.value = isMobileWidth();
+        }
     };
 
     onMounted(() => {
