@@ -41,7 +41,6 @@ const projects: Project[] = [
         tech: ['Vue 3', 'Typescript', 'SCSS', 'Node.js', 'Express', 'MongoDB'],
         image: '/projectThumbs/bean.jpg',
         repo: 'https://github.com/sbboard/beanBetters',
-        video: 'test.mp4',
     },
     {
         name: 'Direqt Search Dashboard',

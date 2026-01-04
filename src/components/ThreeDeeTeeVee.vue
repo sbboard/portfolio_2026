@@ -100,24 +100,24 @@ function setTextureMat(src: string) {
                 uniform float videoOffsetX;
                 uniform float videoOffsetY;
                 varying vec2 vUv;
-                
+
                 void main() {
                     vec4 texColor = texture2D(map, vUv);
-                    
+
                     // 90-degree clockwise rotation: (x,y) -> (1-y, x)
                     vec2 rotatedUV = vec2(vUv.y, 1.0 - vUv.x);
-                    
+
                     // Scale and position video with separate X/Y scaling for aspect ratio control
                     vec2 videoUV = (rotatedUV - 0.5) / vec2(videoScaleX, videoScaleY) / videoScale + 0.5 + vec2(videoOffsetX, videoOffsetY);
-                    
+
                     vec4 videoColor = texture2D(videoMap, videoUV);
-                    
+
                     float chromaDist = distance(texColor.rgb, keyColor);
                     float alpha = smoothstep(threshold, threshold + smoothing, chromaDist);
-                    
+
                     // Mix video in keyed areas, original texture elsewhere
                     vec3 finalColor = mix(videoColor.rgb, texColor.rgb, alpha);
-                    
+
                     gl_FragColor = vec4(finalColor, 1.0);
                 }
             `,
@@ -189,7 +189,7 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
     const box = new THREE.Box3().setFromObject(fbx);
     const size = box.getSize(new THREE.Vector3());
 
-    camera.position.set(0, size.y * 0.47, 5); // height proportional to model
+    camera.position.set(0.0125, size.y * 0.47, 5);
 
     pivot.add(fbx);
     model = pivot;
@@ -282,14 +282,22 @@ function animate() {
     renderer.render(scene, camera);
 }
 
+let lastWidth = 0;
+let lastHeight = 0;
 function setRendererSize() {
     if (!container.value) return;
     const width = container.value.clientWidth;
     const height = container.value.clientHeight;
+    if (width === lastWidth && height === lastHeight) return;
+    lastWidth = width;
+    lastHeight = height;
     renderer.setSize(width, height);
     camera.aspect = width / height;
     camera.fov = mobile.isMobile.value ? 40 : 30;
     camera.updateProjectionMatrix();
+    setTimeout(() => {
+        setRendererSize();
+    }, 250);
 }
 
 onMounted(() => {
