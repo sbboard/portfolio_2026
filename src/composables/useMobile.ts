@@ -8,26 +8,30 @@ const BREAKPOINT = 550;
  */
 export function useMobile() {
     const isMobile = ref(false);
+    const isMobileDevice = ref(false);
+
     const isMobileWidth = () => window.innerWidth <= BREAKPOINT;
 
-    const checkMobile = () => {
+    function checkDevice() {
         try {
-            const isMobileUserAgent =
+            isMobileDevice.value =
                 /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
                     navigator.userAgent
                 );
-            isMobile.value = isMobileWidth() || isMobileUserAgent;
         } catch {
-            isMobile.value = isMobileWidth();
+            isMobileDevice.value = false;
         }
-    };
+    }
+
+    const checkMobile = () => (isMobile.value = isMobileWidth() || isMobileDevice.value);
 
     onMounted(() => {
+        checkDevice();
         checkMobile();
         window.addEventListener('resize', checkMobile);
     });
 
     onUnmounted(() => window.removeEventListener('resize', checkMobile));
 
-    return { isMobile };
+    return { isMobile, isMobileDevice };
 }

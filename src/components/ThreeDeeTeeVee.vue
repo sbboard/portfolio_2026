@@ -190,6 +190,7 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
 // Mouse tracking
 const mouse = new THREE.Vector2();
 window.addEventListener('mousemove', e => {
+    if (mobile.isMobileDevice.value) return;
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 });

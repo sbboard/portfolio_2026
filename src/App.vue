@@ -34,8 +34,8 @@ main {
     --padding: 12px;
     --textColor: v-bind(TEXT_COLOR);
     --textColorOpaque: v-bind(TEXT_COLOR_OPAQUE);
-    max-height: 100vh;
-    min-height: 100vh;
+    max-height: 100dvh;
+    min-height: 100dvh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
