@@ -71,20 +71,15 @@ main {
             flex: 1;
             &.v-enter-active,
             &.v-leave-active {
-                min-width: 0%;
-                flex: unset;
-                width: unset;
-                transition: opacity 1s ease, width 1s ease;
+                transition: opacity 1s ease;
             }
 
             &.v-enter-from,
             &.v-leave-to {
                 opacity: 0;
-                width: 0%;
             }
             &.v-enter-to,
             &.v-leave-from {
-                width: 50%;
                 opacity: 1;
             }
         }
@@ -97,16 +92,6 @@ main {
                 width: 100%;
                 max-width: 100%;
                 min-width: 100%;
-
-                &.v-enter-from,
-                &.v-leave-to {
-                    width: 100%;
-                }
-                &.v-enter-to,
-                &.v-leave-from {
-                    width: 100%;
-                    opacity: 1;
-                }
             }
         }
     }
