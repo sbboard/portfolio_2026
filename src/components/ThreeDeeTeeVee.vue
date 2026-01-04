@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useMobile } from '@/composables/useMobile';
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
 import { CHROMA_COLOR, getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
@@ -10,6 +11,7 @@ const projectStore = useProjectStore();
 const { findProjectByDate } = useProjects();
 const container = ref<HTMLElement | null>(null);
 const scene = new THREE.Scene();
+const mobile = useMobile();
 
 // Video element and controls
 const videoElement = ref<HTMLVideoElement | null>(null);
@@ -208,6 +210,7 @@ function setRendererSize() {
     const height = container.value.clientHeight;
     renderer.setSize(width, height);
     camera.aspect = width / height;
+    camera.fov = mobile.isMobile.value ? 50 : 30;
     camera.updateProjectionMatrix();
 }
 
