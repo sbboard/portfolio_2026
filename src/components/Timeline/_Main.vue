@@ -56,5 +56,11 @@ const { getDateRange, findProjectByDate } = useProjects();
             min-width: 25px;
         }
     }
+
+    @media (max-width: 500px) {
+        .timeline .entryWrap {
+            min-width: 10px;
+        }
+    }
 }
 </style>
