@@ -29,9 +29,9 @@ async function copyWrapper(email: string) {
             <div class="bio">
                 <h1>Colin Buffum</h1>
                 <p>
-                    Front-end engineer specializing in Vue and Nuxt, with experience building and
-                    maintaining production web applications and interactive UI systems.<br />
-                    Seeking a challenging role to contribute to creative web projects.
+                    Front-end engineer with experience building and maintaining production web
+                    applications and interactive UI systems.<br />
+                    Seeking to contribute to unique web experiences.
                 </p>
             </div>
             <div class="contact">
