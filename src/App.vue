@@ -6,7 +6,12 @@ import SiteFooter from './components/SiteFooter.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import ThreeDeeTeeVee from './components/ThreeDeeTeeVee.vue';
 import TimeLine from './components/Timeline/_Main.vue';
-import { getRawHexColor, TEXT_COLOR, TEXT_COLOR_OPAQUE } from './utils/styleConfig';
+import {
+    BACKGROUND_COLOR,
+    getRawHexColor,
+    TEXT_COLOR,
+    TEXT_COLOR_OPAQUE,
+} from './utils/styleConfig';
 import { useProjectStore } from './stores/project';
 import { useProjects } from './composables/useProjects';
 import { useMobile } from '@/composables/useMobile';
@@ -26,28 +31,34 @@ const currentProject = computed(() => {
 </script>
 
 <template>
-    <main>
-        <SiteHeader />
-        <div class="content">
-            <ThreeDeeTeeVee
-                v-if="!isMobile || (isMobile && !currentProject)"
-                :class="{ hasProject: !!currentProject }"
-            />
-            <ProjectViewer :currentProject="currentProject" />
-        </div>
-        <TimeLine />
-        <SiteFooter />
-        <FilterSvg />
-    </main>
+    <div id="container">
+        <main>
+            <SiteHeader />
+            <div class="content">
+                <ThreeDeeTeeVee
+                    v-if="!isMobile || (isMobile && !currentProject)"
+                    :class="{ hasProject: !!currentProject }"
+                />
+                <ProjectViewer :currentProject="currentProject" />
+            </div>
+            <TimeLine />
+            <SiteFooter />
+            <FilterSvg />
+        </main>
+    </div>
 </template>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
-main {
+#container {
     --padding: 12px;
     --textColor: v-bind(TEXT_COLOR);
     --textColorOpaque: v-bind(TEXT_COLOR_OPAQUE);
+    --backgroundColor: v-bind(BACKGROUND_COLOR);
+    background-color: var(--backgroundColor);
+}
+main {
     max-height: 100dvh;
     min-height: 100dvh;
     overflow: hidden;

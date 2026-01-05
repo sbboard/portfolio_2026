@@ -5,7 +5,6 @@ import { copyToClipboard } from '@/utils/utils';
 import me from '@/assets/me.jpg';
 import { ref } from 'vue';
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
-import { TEXT_COLOR } from '@/utils/styleConfig';
 
 const copyFailed = ref(false);
 const copied = ref(false);
@@ -77,11 +76,9 @@ header {
             overflow: hidden;
             justify-content: center;
             flex-direction: row;
-            background-color: v-bind(TEXT_COLOR);
             img {
-                filter: url(#dither) contrast(1) grayscale(1);
+                filter: url(#dither);
                 height: 100%;
-                mix-blend-mode: screen;
             }
         }
         &.bio {
@@ -147,10 +144,10 @@ header {
 
 @keyframes copy {
     0% {
-        background-color: #c7c7c7;
+        background-color: var(--textColorOpaque);
     }
     100% {
-        background-color: white;
+        background-color: var(--backgroundColor);
     }
 }
 </style>

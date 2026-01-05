@@ -2,7 +2,7 @@
 import { useMobile } from '@/composables/useMobile';
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
-import { CHROMA_COLOR, getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
+import { BACKGROUND_COLOR, CHROMA_COLOR, getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
@@ -178,7 +178,7 @@ function restoreOriginalMaterials() {
 
 function createSolidMaterial() {
     return new THREE.MeshBasicMaterial({
-        color: 0xffffff,
+        color: getRawHexColor(BACKGROUND_COLOR, true),
         opacity: SOLID_MATERIAL_OPACITY,
         transparent: true,
     });

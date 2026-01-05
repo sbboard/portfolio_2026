@@ -53,7 +53,7 @@ const projectStore = useProjectStore();
         align-items: center;
         justify-content: center;
         font-size: 0.75em;
-        color: white;
+        color: var(--backgroundColor);
         background-color: var(--textColor);
         img {
             min-width: 100%;

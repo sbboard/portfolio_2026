@@ -52,7 +52,7 @@ const projectStore = useProjectStore();
 
 <style lang="scss" scoped>
 .project {
-    background-color: white;
+    background-color: var(--backgroundColor);
     margin: 0 auto;
     right: var(--padding);
     display: flex;
