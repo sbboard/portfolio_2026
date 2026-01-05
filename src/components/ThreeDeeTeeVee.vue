@@ -25,16 +25,17 @@ watch(
     () => projectStore.currentProjectDate,
     newProject => {
         const project = findProjectByDate(newProject);
-        if (!newProject || !project) return;
-
-        // Create video element if it doesn't exist
-        if (!videoElement.value) {
-            videoElement.value = document.createElement('video');
-            videoElement.value.loop = true;
-            videoElement.value.muted = true;
+        if (project) {
+            if (!videoElement.value) {
+                videoElement.value = document.createElement('video');
+                videoElement.value.loop = true;
+                videoElement.value.muted = true;
+            }
+            setTextureMat(project.video || 'static_raw.mp4');
+            requestAnimationFrame(setRendererSize);
+        } else {
+            undoTextureMat();
         }
-        setTextureMat(project.video || 'static_raw.mp4');
-        requestAnimationFrame(setRendererSize);
     }
 );
 
@@ -132,8 +133,52 @@ function setTextureMat(src: string) {
     });
 }
 
+function undoTextureMat() {
+    if (!model) return;
+
+    // Stop any playing video
+    if (videoElement.value) {
+        videoElement.value.pause();
+        videoElement.value.src = '';
+    }
+
+    // Restore original materials and visibility for solid and wireframe meshes
+    originalMeshes.forEach(({ solid, wireframe }) => {
+        // Restore solid mesh
+        solid.material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            opacity: 0.75,
+            transparent: true,
+        });
+        solid.visible = true;
+
+        // Restore wireframe mesh
+        wireframe.material = new THREE.MeshBasicMaterial({
+            color: getRawHexColor(TEXT_COLOR, true),
+            wireframe: true,
+        });
+        wireframe.visible = true;
+    });
+
+    // Hide any other meshes that might have the chroma key material applied
+    model.traverse(child => {
+        const mesh = child as THREE.Mesh;
+        if (!mesh.isMesh) return;
+
+        // If this mesh is not one of our stored original meshes, hide it
+        const isOriginalMesh = originalMeshes.some(
+            ({ solid, wireframe }) => mesh === solid || mesh === wireframe
+        );
+
+        if (!isOriginalMesh) {
+            mesh.visible = false;
+        }
+    });
+}
+
 // Model & pivot
 let model: THREE.Group;
+const originalMeshes: { solid: THREE.Mesh; wireframe: THREE.Mesh }[] = [];
 const baseRotation = new THREE.Euler();
 
 // Mobile touch interaction
@@ -173,6 +218,9 @@ new FBXLoader().load('/models/tv.fbx', fbx => {
 
         original.parent!.add(solidMesh);
         original.parent!.add(wireMesh);
+
+        // Store references to the original solid and wireframe meshes
+        originalMeshes.push({ solid: solidMesh, wireframe: wireMesh });
 
         original.visible = false;
     });
