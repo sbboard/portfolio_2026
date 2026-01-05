@@ -177,12 +177,6 @@ const projects: Project[] = [
         image: '/projectThumbs/curio.jpg',
     },
     {
-        name: 'Gang Picross',
-        date: '02/20',
-        description: ['Simple nonogram game engine.'],
-        tech: ['Vue 2'],
-    },
-    {
         name: 'Bonsai Bot',
         date: '01/20',
         description: [
