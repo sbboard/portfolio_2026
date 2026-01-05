@@ -214,6 +214,7 @@ const projects: Project[] = [
         ],
         tech: ['Vue 2'],
         image: '/projectThumbs/gf1.jpg',
+        repo: 'https://github.com/sbboard/gangfight',
     },
     {
         name: 'PC-98 Bot (Twitter)',
