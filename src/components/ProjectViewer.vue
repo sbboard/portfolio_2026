@@ -18,6 +18,14 @@ const projectStore = useProjectStore();
                 :icon="faCircleXmark"
                 @click="projectStore.setCurrentProjectDate()"
             />
+            <video
+                v-if="currentProject?.video"
+                :src="`/models/textures/${currentProject?.video}`"
+                autoplay
+                muted
+                loop
+                playsinline
+            ></video>
             <div class="headerInfo">
                 <div class="left">
                     <h2>{{ currentProject?.name }}</h2>
@@ -56,6 +64,12 @@ const projectStore = useProjectStore();
         cursor: pointer;
         margin-left: auto;
     }
+    video {
+        max-height: 200px;
+        margin: 0 auto;
+        display: block;
+        max-width: 100%;
+    }
     .headerInfo {
         font-size: 1.75rem;
         display: flex;
@@ -80,18 +94,6 @@ const projectStore = useProjectStore();
         list-style-type: disc;
     }
 
-    @media (max-width: 800px) {
-        margin-left: var(--padding);
-        margin-bottom: var(--padding);
-    }
-
-    @media (max-width: 500px) {
-        font-size: 1em;
-        .headerInfo {
-            font-size: 1.5rem;
-        }
-    }
-
     &.v-enter-active,
     &.v-leave-active {
         transition: opacity 0.5s ease, transform 0.5s ease;
@@ -106,6 +108,23 @@ const projectStore = useProjectStore();
     &.v-leave-from {
         opacity: 1;
         transform: translateX(0);
+    }
+
+    @media (max-width: 800px) {
+        max-width: unset;
+        min-width: unset;
+        width: calc(100% - var(--padding) * 2);
+        &.v-enter-active,
+        &.v-leave-active {
+            transition: none;
+        }
+    }
+
+    @media (max-width: 500px) {
+        font-size: 1em;
+        .headerInfo {
+            font-size: 1.5rem;
+        }
     }
 }
 </style>

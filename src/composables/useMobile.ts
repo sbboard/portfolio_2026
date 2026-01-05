@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const BREAKPOINT = 550;
+const BREAKPOINT = 800;
 
 /**
  * Composable for detecting mobile devices and screen width
