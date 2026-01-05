@@ -7,8 +7,12 @@ import { ref } from 'vue';
 export const useProjectStore = defineStore('project', () => {
     const currentProjectDate = ref('');
 
-    function setCurrentProjectDate(date: string) {
-        currentProjectDate.value = date;
+    /**
+     * Sets the current project date.
+     * @param date - The date string of the project to set as current. If undefined, clears the current project date.
+     */
+    function setCurrentProjectDate(date?: string) {
+        currentProjectDate.value = date || '';
     }
 
     return { currentProjectDate, setCurrentProjectDate };

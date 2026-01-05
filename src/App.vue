@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import FilterSvg from './components/FilterSvg.vue';
 import ProjectViewer from './components/ProjectViewer.vue';
 import SiteFooter from './components/SiteFooter.vue';
@@ -6,20 +7,27 @@ import SiteHeader from './components/SiteHeader.vue';
 import ThreeDeeTeeVee from './components/ThreeDeeTeeVee.vue';
 import TimeLine from './components/Timeline/_Main.vue';
 import { getRawHexColor, TEXT_COLOR, TEXT_COLOR_OPAQUE } from './utils/styleConfig';
+import { useProjectStore } from './stores/project';
+import { useProjects } from './composables/useProjects';
 
 const grid = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23${getRawHexColor(
     TEXT_COLOR_OPAQUE
 )}' stroke-width='1'/%3E%3C/svg%3E")`;
+
+const projectStore = useProjectStore();
+const { findProjectByDate } = useProjects();
+
+const currentProject = computed(() => {
+    return findProjectByDate(projectStore.currentProjectDate);
+});
 </script>
 
 <template>
     <main>
         <SiteHeader />
         <div class="content">
-            <ThreeDeeTeeVee />
-            <Transition>
-                <ProjectViewer></ProjectViewer>
-            </Transition>
+            <ThreeDeeTeeVee :class="{ hasProject: !!currentProject }" />
+            <ProjectViewer :currentProject="currentProject" />
         </div>
         <TimeLine />
         <SiteFooter />
@@ -64,23 +72,15 @@ main {
         background-position: center;
         background-image: v-bind(grid);
         overflow: hidden;
+        position: relative;
         & > div {
             width: 50%;
             max-width: 50%;
             min-width: 50%;
             flex: 1;
-            &.v-enter-active,
-            &.v-leave-active {
-                transition: opacity 1s ease;
-            }
-
-            &.v-enter-from,
-            &.v-leave-to {
-                opacity: 0;
-            }
-            &.v-enter-to,
-            &.v-leave-from {
-                opacity: 1;
+            transition: margin-right 0.5s ease;
+            &.hasProject {
+                margin-right: 50%;
             }
         }
     }

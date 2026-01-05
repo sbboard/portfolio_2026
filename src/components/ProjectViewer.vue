@@ -1,20 +1,23 @@
 <script lang="ts" setup>
-import { useProjects } from '@/composables/useProjects';
-import { useProjectStore } from '@/stores/project';
-import { computed } from 'vue';
+import { type Project } from '@/composables/useProjects';
 import ProjectLinks from './ProjectViewer/ProjectLinks.vue';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useProjectStore } from '@/stores/project';
+
+const props = defineProps<{ currentProject?: Project }>();
 
 const projectStore = useProjectStore();
-const { findProjectByDate } = useProjects();
-
-const currentProject = computed(() => {
-    return findProjectByDate(projectStore.currentProjectDate);
-});
 </script>
 
 <template>
-    <div v-if="currentProject">
-        <div class="project">
+    <Transition>
+        <div v-if="props.currentProject" class="project">
+            <FontAwesomeIcon
+                class="close"
+                :icon="faCircleXmark"
+                @click="projectStore.setCurrentProjectDate()"
+            />
             <div class="headerInfo">
                 <div class="left">
                     <h2>{{ currentProject?.name }}</h2>
@@ -36,18 +39,23 @@ const currentProject = computed(() => {
                 {{ currentProject?.tech.join(', ') }}
             </div>
         </div>
-    </div>
+    </Transition>
 </template>
 
 <style lang="scss" scoped>
 .project {
     background-color: white;
     margin: 0 auto;
-    margin-right: var(--padding);
+    right: var(--padding);
     display: flex;
     flex-direction: column;
     gap: var(--padding);
     font-size: 1.125em;
+    position: absolute;
+    .close {
+        cursor: pointer;
+        margin-left: auto;
+    }
     .headerInfo {
         font-size: 1.75rem;
         display: flex;
@@ -82,6 +90,22 @@ const currentProject = computed(() => {
         .headerInfo {
             font-size: 1.5rem;
         }
+    }
+
+    &.v-enter-active,
+    &.v-leave-active {
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    &.v-enter-from,
+    &.v-leave-to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    &.v-enter-to,
+    &.v-leave-from {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 </style>
