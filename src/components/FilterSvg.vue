@@ -1,5 +1,5 @@
 <template>
-    <svg width="0" height="0">
+    <svg style="display: none">
         <defs>
             <filter
                 id="dither"

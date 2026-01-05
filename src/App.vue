@@ -9,6 +9,7 @@ import TimeLine from './components/Timeline/_Main.vue';
 import { getRawHexColor, TEXT_COLOR, TEXT_COLOR_OPAQUE } from './utils/styleConfig';
 import { useProjectStore } from './stores/project';
 import { useProjects } from './composables/useProjects';
+import { useMobile } from '@/composables/useMobile';
 
 const grid = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23${getRawHexColor(
     TEXT_COLOR_OPAQUE
@@ -16,6 +17,8 @@ const grid = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
 
 const projectStore = useProjectStore();
 const { findProjectByDate } = useProjects();
+const mobile = useMobile();
+const isMobile = computed(() => mobile.isMobile.value);
 
 const currentProject = computed(() => {
     return findProjectByDate(projectStore.currentProjectDate);
@@ -26,7 +29,10 @@ const currentProject = computed(() => {
     <main>
         <SiteHeader />
         <div class="content">
-            <ThreeDeeTeeVee :class="{ hasProject: !!currentProject }" />
+            <ThreeDeeTeeVee
+                v-if="!isMobile || (isMobile && !currentProject)"
+                :class="{ hasProject: !!currentProject }"
+            />
             <ProjectViewer :currentProject="currentProject" />
         </div>
         <TimeLine />
