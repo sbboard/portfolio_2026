@@ -2,9 +2,7 @@
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
 import { computed } from 'vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import ProjectLinks from './ProjectViewer/ProjectLinks.vue';
 
 const projectStore = useProjectStore();
 const { findProjectByDate } = useProjects();
@@ -18,7 +16,14 @@ const currentProject = computed(() => {
     <div v-if="currentProject">
         <div class="project">
             <div class="headerInfo">
-                <h2>{{ currentProject?.name }}</h2>
+                <div class="left">
+                    <h2>{{ currentProject?.name }}</h2>
+                    <ProjectLinks
+                        v-if="currentProject?.repo || currentProject?.link"
+                        :repo="currentProject?.repo"
+                        :link="currentProject?.link"
+                    />
+                </div>
                 <h3>{{ currentProject?.date }}</h3>
             </div>
             <ul>
@@ -29,14 +34,6 @@ const currentProject = computed(() => {
             <div class="tech">
                 <strong>Technologies Used:</strong>
                 {{ currentProject?.tech.join(', ') }}
-            </div>
-            <div class="links" v-if="currentProject?.link || currentProject?.repo">
-                <a v-if="currentProject?.link" :href="currentProject?.link" target="_blank"
-                    ><FontAwesomeIcon :icon="faEarthAmericas"
-                /></a>
-                <a v-if="currentProject?.repo" :href="currentProject?.repo" target="_blank"
-                    ><FontAwesomeIcon :icon="faGithub"
-                /></a>
             </div>
         </div>
     </div>
@@ -58,17 +55,15 @@ const currentProject = computed(() => {
         h2 {
             font-weight: bold;
         }
+        .left {
+            display: flex;
+            gap: 5px;
+        }
     }
     .tech {
         padding-bottom: 2px;
         strong {
             font-weight: bold;
-        }
-    }
-    .links {
-        text-align: right;
-        a {
-            font-size: 1.5rem;
         }
     }
 
