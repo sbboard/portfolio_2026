@@ -3,9 +3,21 @@ import { ref } from 'vue';
 import { CURRENT_THEME_INDEX, themes } from '@/utils/styleConfig';
 
 const isOpen = ref(false);
+const clickListener = (e: MouseEvent) => {
+    const dropdown = document.querySelector('.dropdown');
+    if (dropdown && !dropdown.contains(e.target as Node)) {
+        isOpen.value = false;
+        document.removeEventListener('click', clickListener);
+    }
+};
 
 const toggleDropdown = () => {
     isOpen.value = !isOpen.value;
+    if (isOpen.value) {
+        document.addEventListener('click', clickListener);
+    } else {
+        document.removeEventListener('click', clickListener);
+    }
 };
 
 const selectTheme = (index: number) => {
