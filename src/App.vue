@@ -16,9 +16,12 @@ import { useProjectStore } from './stores/project';
 import { useProjects } from './composables/useProjects';
 import { useMobile } from '@/composables/useMobile';
 
-const grid = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23${getRawHexColor(
-    TEXT_COLOR_OPAQUE.value
-)}' stroke-width='1'/%3E%3C/svg%3E")`;
+const grid = computed(
+    () =>
+        `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 25 25'%3E%3Cpath d='M25 0H0V25' fill='none' stroke='%23${getRawHexColor(
+            TEXT_COLOR_OPAQUE.value
+        )}' stroke-width='1'/%3E%3C/svg%3E")`
+);
 
 const projectStore = useProjectStore();
 const { findProjectByDate } = useProjects();
