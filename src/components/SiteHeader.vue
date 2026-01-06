@@ -5,7 +5,7 @@ import { copyToClipboard } from '@/utils/utils';
 import me from '@/assets/me.jpg';
 import { ref } from 'vue';
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
-import ThemePicker from '@/components/ThemePicker/_Main.vue';
+import ThemePicker from '@/components/ThemePicker.vue';
 
 const copyFailed = ref(false);
 const copied = ref(false);
