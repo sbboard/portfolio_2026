@@ -8,6 +8,7 @@ const { getDateRange, findProjectByDate } = useProjects();
 const scrollable = ref<HTMLElement | null>(null);
 const leftOverflow = ref(false);
 const rightOverflow = ref(false);
+const lightsOn = ref(false);
 
 const checkOverflow = () => {
     if (!scrollable.value) return;
@@ -16,13 +17,22 @@ const checkOverflow = () => {
     rightOverflow.value = scrollWidth > clientWidth + scrollLeft;
 };
 
-onMounted(() => checkOverflow());
+function toggleLights(on: boolean) {
+    lightsOn.value = on;
+    const nextTimeout = on ? 500 : 500;
+    setTimeout(() => toggleLights(!on), nextTimeout);
+}
+
+onMounted(() => {
+    checkOverflow();
+    toggleLights(true);
+});
 </script>
 
 <template>
     <div class="timeLineWrapWrap">
-        <TimeLineArrow direction="left" :isVisible="leftOverflow" />
-        <TimeLineArrow direction="right" :isVisible="rightOverflow" />
+        <TimeLineArrow direction="left" :isVisible="leftOverflow && lightsOn" />
+        <TimeLineArrow direction="right" :isVisible="rightOverflow && lightsOn" />
         <div
             class="timelineWrap"
             ref="scrollable"

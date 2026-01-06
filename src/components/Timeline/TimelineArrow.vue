@@ -17,7 +17,7 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .arrowParent {
     --offset: -18px;
-    font-size: 20px;
+    font-size: 21px;
     position: absolute;
     top: 0;
     bottom: var(--scrollbarHeight);
@@ -27,7 +27,7 @@ const props = defineProps<{
     display: flex;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.1s;
     &.show {
         opacity: 1;
     }
