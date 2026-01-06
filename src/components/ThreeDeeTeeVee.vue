@@ -2,7 +2,13 @@
 import { useMobile } from '@/composables/useMobile';
 import { useProjects } from '@/composables/useProjects';
 import { useProjectStore } from '@/stores/project';
-import { BACKGROUND_COLOR, CHROMA_COLOR, getRawHexColor, TEXT_COLOR } from '@/utils/styleConfig';
+import {
+    BACKGROUND_COLOR,
+    CHROMA_COLOR,
+    CURRENT_THEME_INDEX,
+    getRawHexColor,
+    TEXT_COLOR,
+} from '@/utils/styleConfig';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
@@ -178,7 +184,7 @@ function restoreOriginalMaterials() {
 
 function createSolidMaterial() {
     return new THREE.MeshBasicMaterial({
-        color: getRawHexColor(BACKGROUND_COLOR, true),
+        color: getRawHexColor(BACKGROUND_COLOR.value, true),
         opacity: SOLID_MATERIAL_OPACITY,
         transparent: true,
     });
@@ -186,7 +192,7 @@ function createSolidMaterial() {
 
 function createWireframeMaterial() {
     return new THREE.MeshBasicMaterial({
-        color: getRawHexColor(TEXT_COLOR, true),
+        color: getRawHexColor(TEXT_COLOR.value, true),
         wireframe: true,
     });
 }
@@ -398,6 +404,14 @@ watch(
         } else {
             undoTextureMat();
         }
+    }
+);
+
+watch(
+    () => CURRENT_THEME_INDEX.value,
+    () => {
+        if (projectStore.currentProjectDate) return;
+        restoreOriginalMaterials();
     }
 );
 

@@ -1,3 +1,5 @@
+import { computed, ref } from 'vue';
+
 export const themes = [
     { name: 'ice', text: '#7795af', background: '#f2f5f8' },
     { name: 'neon', text: '#ff008c', background: '#141414' },
@@ -11,9 +13,10 @@ export const themes = [
     { name: 'DMG', text: '#214231', background: '#8cad28' },
 ];
 
-export const TEXT_COLOR = themes[0]!.text;
-export const BACKGROUND_COLOR = themes[0]!.background;
-export const TEXT_COLOR_OPAQUE = `${TEXT_COLOR}45`;
+export const CURRENT_THEME_INDEX = ref(0);
+export const TEXT_COLOR = computed(() => themes[CURRENT_THEME_INDEX.value]!.text);
+export const BACKGROUND_COLOR = computed(() => themes[CURRENT_THEME_INDEX.value]!.background);
+export const TEXT_COLOR_OPAQUE = computed(() => `${TEXT_COLOR.value}45`);
 export const CHROMA_COLOR = '#1eff00';
 
 export function getRawHexColor(color: string, num?: boolean): string | number {

@@ -5,6 +5,7 @@ import { copyToClipboard } from '@/utils/utils';
 import me from '@/assets/me.jpg';
 import { ref } from 'vue';
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import ThemePicker from '@/components/ThemePicker/_Main.vue';
 
 const copyFailed = ref(false);
 const copied = ref(false);
@@ -34,6 +35,7 @@ async function copyWrapper(email: string) {
                 </p>
             </div>
             <div class="contact">
+                <ThemePicker />
                 <div
                     class="email"
                     :class="{ copyFailed, copied }"

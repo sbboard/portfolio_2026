@@ -4,15 +4,15 @@ import { TEXT_COLOR, BACKGROUND_COLOR } from '@/utils/styleConfig';
 
 // Convert hex colors to RGB values (0-1 range for color matrix)
 const bgColorRgb = computed(() => ({
-    r: parseInt(TEXT_COLOR.slice(1, 3), 16) / 255,
-    g: parseInt(TEXT_COLOR.slice(3, 5), 16) / 255,
-    b: parseInt(TEXT_COLOR.slice(5, 7), 16) / 255,
+    r: parseInt(TEXT_COLOR.value.slice(1, 3), 16) / 255,
+    g: parseInt(TEXT_COLOR.value.slice(3, 5), 16) / 255,
+    b: parseInt(TEXT_COLOR.value.slice(5, 7), 16) / 255,
 }));
 
 const textColorRgb = computed(() => ({
-    r: parseInt(BACKGROUND_COLOR.slice(1, 3), 16) / 255,
-    g: parseInt(BACKGROUND_COLOR.slice(3, 5), 16) / 255,
-    b: parseInt(BACKGROUND_COLOR.slice(5, 7), 16) / 255,
+    r: parseInt(BACKGROUND_COLOR.value.slice(1, 3), 16) / 255,
+    g: parseInt(BACKGROUND_COLOR.value.slice(3, 5), 16) / 255,
+    b: parseInt(BACKGROUND_COLOR.value.slice(5, 7), 16) / 255,
 }));
 
 const colorMatrix = computed(() => {
