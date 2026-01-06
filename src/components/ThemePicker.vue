@@ -118,6 +118,10 @@ const selectTheme = (index: number) => {
             }
         }
     }
+
+    @media (max-width: 800px) {
+        margin-top: 0px;
+    }
 }
 
 .theme-preview {
