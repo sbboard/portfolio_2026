@@ -2,8 +2,8 @@ import { computed, ref } from 'vue';
 
 export const themes = [
     { name: 'ice', text: '#7795af', background: '#f2f5f8' },
-    { name: '.txt', text: '#272727', background: '#ececec' },
-    { name: 'neon', text: '#ff0080', background: '#130e14' },
+    { name: '.txt', text: '#474747', background: '#ffffff' },
+    { name: 'neon', text: '#ff1188', background: '#0a070a' },
     { name: 'pika pika', text: '#141414', background: '#ffdc3f' },
     { name: 'l33t', text: '#00ff00', background: '#000000' },
 ];
