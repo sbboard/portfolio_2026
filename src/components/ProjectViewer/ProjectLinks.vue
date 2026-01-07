@@ -16,6 +16,7 @@ const { link, repo } = defineProps<{ link?: string; repo?: string }>();
 <style lang="scss" scoped>
 .links {
     text-align: right;
+    white-space: nowrap;
     a {
         font-size: 1.5rem;
     }
