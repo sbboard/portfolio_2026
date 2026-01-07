@@ -16,6 +16,7 @@ const projects: Project[] = [
         description: ['Artsy web toy about an astronaut making music.'],
         tech: ['Javascript'],
         link: 'https://gang-fight.com/projects/salvaged_parts/',
+        image: '/projectThumbs/parts.jpg',
     },
     {
         name: 'Portfolio',
@@ -30,6 +31,7 @@ const projects: Project[] = [
         description: ['Tutorial website for getting started with PC-98 emulation.'],
         tech: ['HTML5', 'CSS3'],
         link: 'https://gang-fight.com/projects/98faq/',
+        image: '/projectThumbs/pcfaq.jpg',
     },
     {
         name: 'Big Bean Bettors',
@@ -94,15 +96,7 @@ const projects: Project[] = [
         description: ['Goofy retro styled website built to showcase soda rankings.'],
         tech: ['HTML5', 'CSS3'],
         link: 'https://sodaenjoyer.com/',
-    },
-    {
-        name: 'Burger Genius',
-        date: '04/22',
-        description: [
-            'Humorous webscraper that dynamically collects information from Wikipedia to create really bad burger ideas.',
-        ],
-        tech: ['Javascript', 'Node', 'Puppeteer'],
-        repo: 'https://github.com/sbboard/wikiburger',
+        image: '/projectThumbs/soda.jpg',
     },
     {
         name: 'CEE',
@@ -111,6 +105,7 @@ const projects: Project[] = [
         tech: ['Javascript'],
         repo: 'https://github.com/sbboard/cee',
         link: 'https://cee.rcreative.marketing/',
+        image: '/projectThumbs/cee.jpg',
     },
     {
         name: 'Wellness Quiz',
@@ -119,21 +114,7 @@ const projects: Project[] = [
         tech: ['Javascript'],
         repo: 'https://github.com/sbboard/quizEngine',
         link: 'https://sbboard.github.io/quizEngine/',
-    },
-    {
-        name: 'Bubble Menu',
-        date: '05/21',
-        description: ['Demo for an animated bubble menu.'],
-        tech: ['Javascript'],
-        link: 'https://sbboard.github.io/bubbleEngine/',
-        repo: 'https://github.com/sbboard/bubbleEngine',
-    },
-    {
-        name: 'StrikeOut Card Creator Demo',
-        date: '04/21',
-        description: ['Rough demo for a baseball card creation tool.'],
-        tech: ['React.js'],
-        link: 'https://gang-fight.com/projects/cardCreator/',
+        image: '/projectThumbs/well.jpg',
     },
     {
         name: 'Drawing Warm-Up Tool',
@@ -145,6 +126,7 @@ const projects: Project[] = [
         tech: ['Typescript'],
         link: 'https://gang-fight.com/projects/warmup/',
         repo: 'https://github.com/sbboard/warmup',
+        image: '/projectThumbs/warm.jpg',
     },
     {
         name: 'The Invisible Sundial Website',
@@ -153,6 +135,7 @@ const projects: Project[] = [
         tech: ['Wordpress', 'PHP'],
         link: 'https://theinvisiblesundial.com/',
         repo: 'https://github.com/sbboard/invisibleSundial',
+        image: '/projectThumbs/vis.jpg',
     },
     {
         name: '1000 Tapes of Fate',
@@ -164,6 +147,7 @@ const projects: Project[] = [
         tech: ['Vue 2'],
         link: 'https://1000tapes.com/',
         repo: 'https://github.com/sbboard/audioAdventure',
+        image: '/projectThumbs/tapes.jpg',
     },
     {
         name: 'Curiosity Museum Exhibit Prototype',
@@ -208,6 +192,7 @@ const projects: Project[] = [
         tech: ['Node.js'],
         link: 'https://x.com/PC98_bot',
         repo: 'https://github.com/sbboard/pc98bot',
+        image: '/projectThumbs/pc1.jpg',
     },
     {
         name: 'PC-98 Bot (Bsky)',

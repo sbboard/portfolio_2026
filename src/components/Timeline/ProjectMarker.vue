@@ -46,7 +46,7 @@ const projectStore = useProjectStore();
         width: var(--imgSize);
         height: var(--imgSize);
         overflow: hidden;
-        border-radius: 100%;
+        border-radius: 10px;
         border: 1px solid var(--textColor);
         margin: 0 auto;
         display: flex;
