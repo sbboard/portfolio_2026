@@ -167,7 +167,7 @@ const projects: Project[] = [
     },
     {
         name: 'Curiosity Museum Exhibit Prototype',
-        date: '05/20',
+        date: '03/20',
         description: [
             "Physical interactive exhibit prototype built in collaboration with Utah's Museum of Natural Curiosity.",
             'Utilized NFC technology and respberry pi to launch videos on a nearby screen when physical objects were placed on the exhibit surface.',
@@ -175,24 +175,6 @@ const projects: Project[] = [
         tech: ['Python'],
         repo: 'https://github.com/echohatch1/NFC-Video-Launcher',
         image: '/projectThumbs/curio.jpg',
-    },
-    {
-        name: 'Bonsai Bot',
-        date: '01/20',
-        description: [
-            'Discord chat bot created for entertainment purposes.',
-            "Had the personality of a rude monkey who loved when chat participants typed the word 'bonsai'.",
-        ],
-        tech: ['Node.js'],
-        image: '/projectThumbs/bonsai.jpg',
-        repo: 'https://github.com/sbboard/BonsaiBot',
-    },
-    {
-        name: 'Soviet Futbol',
-        date: '11/19',
-        description: ['Online sticker shop.'],
-        tech: ['Wordpress', 'PHP', 'WooCommerce'],
-        image: '/projectThumbs/soviet.jpg',
     },
     {
         name: 'Gang Fight V2',
