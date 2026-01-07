@@ -88,14 +88,8 @@ onMounted(() => {
             }
             .entryWrap {
                 display: inline-flex;
-                min-width: 25px;
+                min-width: 10px;
             }
-        }
-    }
-
-    @media (max-width: 500px) {
-        .timeline .entryWrap {
-            min-width: 10px;
         }
     }
 }
