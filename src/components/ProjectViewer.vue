@@ -114,6 +114,9 @@ const projectStore = useProjectStore();
         max-width: unset;
         min-width: unset;
         width: calc(100% - var(--padding) * 2);
+        video {
+            max-height: 100px;
+        }
         &.v-enter-active,
         &.v-leave-active {
             transition: none;
@@ -121,7 +124,7 @@ const projectStore = useProjectStore();
     }
 
     @media (max-width: 500px) {
-        font-size: 1em;
+        font-size: 12px;
         .headerInfo {
             font-size: 1.5rem;
         }

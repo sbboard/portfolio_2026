@@ -30,8 +30,8 @@ async function copyWrapper(email: string) {
                 <h1>Colin Buffum</h1>
                 <p>
                     Front-end engineer with experience building and maintaining production web
-                    applications and interactive UI systems.<br />
-                    Seeking to contribute to unique web experiences.
+                    applications and interactive UI systems. Seeking to contribute to unique web
+                    experiences.
                 </p>
             </div>
             <div class="contact">
@@ -133,6 +133,9 @@ header {
             .bio {
                 h1 {
                     font-size: 1.5rem;
+                }
+                p {
+                    font-size: 12px;
                 }
             }
             .contact {

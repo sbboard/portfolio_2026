@@ -15,8 +15,8 @@ footer {
     font-size: 0.6em;
     text-align: right;
 
-    @media (max-width: 550px) {
-        font-size: 0.4em;
+    @media (max-width: 800px) {
+        font-size: 5px;
     }
 }
 </style>

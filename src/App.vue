@@ -35,7 +35,7 @@ const currentProject = computed(() => {
 
 <template>
     <div id="container">
-        <main>
+        <main :class="{ isMobile }">
             <SiteHeader />
             <div class="content">
                 <ThreeDeeTeeVee
@@ -77,6 +77,9 @@ main {
     font-style: normal;
     gap: var(--padding);
     letter-spacing: 1px;
+    &.isMobile {
+        gap: calc(var(--padding) / 2);
+    }
     a {
         color: var(--textColor);
         &:visited {

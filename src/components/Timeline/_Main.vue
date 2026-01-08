@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import { useProjects } from '@/composables/useProjects';
 import ProjectMarker from './ProjectMarker.vue';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import TimeLineArrow from './TimelineArrow.vue';
+import { useMobile } from '@/composables/useMobile';
 
 const { getDateRange, findProjectByDate } = useProjects();
 const scrollable = ref<HTMLElement | null>(null);
 const leftOverflow = ref(false);
 const rightOverflow = ref(false);
 const lightsOn = ref(false);
+const mobile = useMobile();
+const isMobile = computed(() => mobile.isMobile.value);
 
 const checkOverflow = () => {
     if (!scrollable.value) return;
@@ -33,12 +36,7 @@ onMounted(() => {
     <div class="timeLineWrapWrap">
         <TimeLineArrow direction="left" :isVisible="leftOverflow && lightsOn" />
         <TimeLineArrow direction="right" :isVisible="rightOverflow && lightsOn" />
-        <div
-            class="timelineWrap"
-            ref="scrollable"
-            @scroll="checkOverflow"
-            :class="{ leftOverflow, rightOverflow }"
-        >
+        <div class="timelineWrap" ref="scrollable" @scroll="checkOverflow" :class="{ isMobile }">
             <div class="timeline">
                 <div class="line"></div>
                 <div class="entryWrap" v-for="date in getDateRange()" :key="date">
@@ -71,6 +69,9 @@ onMounted(() => {
             background-color: var(--textColor);
             border-radius: 8px;
             background-clip: padding-box;
+        }
+        &.isMobile {
+            padding-bottom: calc(var(--padding) / 2);
         }
         .timeline {
             --imgSize: 75px;
