@@ -43,6 +43,7 @@ const projects: Project[] = [
         tech: ['Vue 3', 'Typescript', 'SCSS', 'Node.js', 'Express', 'MongoDB'],
         image: '/projectThumbs/bean.jpg',
         repo: 'https://github.com/sbboard/beanBetters',
+        video: 'bean.mp4',
     },
     {
         name: 'Direqt Search Dashboard',
@@ -62,6 +63,7 @@ const projects: Project[] = [
         ],
         tech: ['Vue 3', 'Typescript', 'SCSS'],
         image: '/projectThumbs/search.jpg',
+        video: 'search.mp4',
     },
     {
         name: 'Direqt AI Portal',
@@ -81,6 +83,7 @@ const projects: Project[] = [
         ],
         tech: ['Vue 3', 'Nuxt', 'Typescript'],
         image: '/projectThumbs/chat.jpg',
+        video: 'chat.mp4',
     },
     {
         name: 'Splash Screen',
@@ -89,6 +92,7 @@ const projects: Project[] = [
         tech: ['Javascript'],
         link: 'https://gang-fight.com/projects/halfMoon/',
         image: '/projectThumbs/skull.jpg',
+        video: 'splash.mp4',
     },
     {
         name: 'Soda Enjoyer',
@@ -97,6 +101,7 @@ const projects: Project[] = [
         tech: ['HTML5', 'CSS3'],
         link: 'https://sodaenjoyer.com/',
         image: '/projectThumbs/soda.jpg',
+        video: 'soda.mp4',
     },
     {
         name: 'CEE',
@@ -171,6 +176,7 @@ const projects: Project[] = [
         image: '/projectThumbs/gf2.jpg',
         link: 'https://gang-fight.com/',
         repo: 'https://github.com/sbboard/gang-fight-v2',
+        video: 'gf2.mp4',
     },
     {
         name: 'Gang Fight',
@@ -205,6 +211,7 @@ const projects: Project[] = [
         image: '/projectThumbs/bsky.jpg',
         link: 'https://bsky.app/profile/pc98bot.gang-fight.com',
         repo: 'https://github.com/sbboard/pc98bot',
+        video: 'bsky.mp4',
     },
 ].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();

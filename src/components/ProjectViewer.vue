@@ -18,14 +18,6 @@ const projectStore = useProjectStore();
                 :icon="faCircleXmark"
                 @click="projectStore.setCurrentProjectDate()"
             />
-            <video
-                v-if="currentProject?.video"
-                :src="`/models/textures/${currentProject?.video}`"
-                autoplay
-                muted
-                loop
-                playsinline
-            ></video>
             <div class="headerInfo">
                 <div class="left">
                     <h2>{{ currentProject?.name }}</h2>
