@@ -60,6 +60,7 @@ const projectStore = useProjectStore();
             min-height: 100%;
             object-fit: cover;
             width: inherit;
+            //filter: url(#dither);
         }
     }
     h3 {
