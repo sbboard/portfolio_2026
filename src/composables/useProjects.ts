@@ -17,6 +17,7 @@ const projects: Project[] = [
         tech: ['Javascript'],
         link: 'https://gang-fight.com/projects/salvaged_parts/',
         image: '/projectThumbs/parts.jpg',
+        video: 'parts.mp4',
     },
     {
         name: 'Portfolio',
@@ -24,6 +25,7 @@ const projects: Project[] = [
         description: ['My portfolio.', "You're here now."],
         tech: ['Vue 3', 'Typescript', 'SCSS', 'Three.js'],
         repo: 'https://github.com/sbboard/portfolio_2026',
+        video: 'portfolio.mp4',
     },
     {
         name: 'PC-98 Emulation For Beginners',
@@ -32,6 +34,7 @@ const projects: Project[] = [
         tech: ['HTML5', 'CSS3'],
         link: 'https://gang-fight.com/projects/98faq/',
         image: '/projectThumbs/pcfaq.jpg',
+        video: 'guide.mp4',
     },
     {
         name: 'Big Bean Bettors',
@@ -111,6 +114,7 @@ const projects: Project[] = [
         repo: 'https://github.com/sbboard/cee',
         link: 'https://cee.rcreative.marketing/',
         image: '/projectThumbs/cee.jpg',
+        video: 'cee.mp4',
     },
     {
         name: 'Wellness Quiz',
@@ -120,6 +124,7 @@ const projects: Project[] = [
         repo: 'https://github.com/sbboard/quizEngine',
         link: 'https://sbboard.github.io/quizEngine/',
         image: '/projectThumbs/well.jpg',
+        video: 'well.mp4',
     },
     {
         name: 'Drawing Warm-Up Tool',
@@ -132,6 +137,7 @@ const projects: Project[] = [
         link: 'https://gang-fight.com/projects/warmup/',
         repo: 'https://github.com/sbboard/warmup',
         image: '/projectThumbs/warm.jpg',
+        video: 'warm.mp4',
     },
     {
         name: 'The Invisible Sundial Website',
@@ -141,6 +147,7 @@ const projects: Project[] = [
         link: 'https://theinvisiblesundial.com/',
         repo: 'https://github.com/sbboard/invisibleSundial',
         image: '/projectThumbs/vis.jpg',
+        video: 'invis.mp4',
     },
     {
         name: '1000 Tapes of Fate',
@@ -153,6 +160,7 @@ const projects: Project[] = [
         link: 'https://1000tapes.com/',
         repo: 'https://github.com/sbboard/audioAdventure',
         image: '/projectThumbs/tapes.jpg',
+        video: 'tapes.mp4',
     },
     {
         name: 'Curiosity Museum Exhibit Prototype',
@@ -164,6 +172,7 @@ const projects: Project[] = [
         tech: ['Python'],
         repo: 'https://github.com/echohatch1/NFC-Video-Launcher',
         image: '/projectThumbs/curio.jpg',
+        video: 'curio.mp4',
     },
     {
         name: 'Gang Fight V2',
@@ -199,6 +208,7 @@ const projects: Project[] = [
         link: 'https://x.com/PC98_bot',
         repo: 'https://github.com/sbboard/pc98bot',
         image: '/projectThumbs/pc1.jpg',
+        video: 'twitter.mp4',
     },
     {
         name: 'PC-98 Bot (Bsky)',

@@ -29,7 +29,7 @@ async function copyWrapper(email: string) {
             <div class="bio">
                 <h1>Colin Buffum</h1>
                 <p>
-                    Front-end engineer with experience building and maintaining production web
+                    Web engineer with experience building and maintaining production web
                     applications and interactive UI systems. Seeking to contribute to unique web
                     experiences.
                 </p>
