@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import FilterSvg from './components/FilterSvg.vue';
 import ProjectViewer from './components/ProjectViewer.vue';
 import SiteFooter from './components/SiteFooter.vue';
@@ -15,6 +15,9 @@ import {
 import { useProjectStore } from './stores/project';
 import { useProjects } from './composables/useProjects';
 import { useMobile } from '@/composables/useMobile';
+import { resume } from './components/const/const';
+import LoadingSpinner from './components/LoadingSpinner.vue';
+import NoWork from './components/NoWork.vue';
 
 const grid = computed(
     () =>
@@ -27,26 +30,44 @@ const projectStore = useProjectStore();
 const { findProjectByDate } = useProjects();
 const mobile = useMobile();
 const isMobile = computed(() => mobile.isMobile.value);
+const resumeExists = ref(false);
+const resumeLoading = ref(true);
 
 const currentProject = computed(() => {
     return findProjectByDate(projectStore.currentProjectDate);
+});
+
+onMounted(async () => {
+    try {
+        const response = await fetch(resume);
+        if (!response.ok) throw new Error('Resume not found');
+        resumeExists.value = true;
+    } catch (error) {
+        console.error('Error fetching resume:', error);
+        resumeExists.value = false;
+    }
+    resumeLoading.value = false;
 });
 </script>
 
 <template>
     <div id="container">
         <main :class="{ isMobile }">
-            <SiteHeader />
-            <div class="content">
-                <ThreeDeeTeeVee
-                    v-if="!isMobile || (isMobile && !currentProject)"
-                    :class="{ hasProject: !!currentProject }"
-                />
-                <ProjectViewer :currentProject="currentProject" />
-            </div>
-            <TimeLine />
-            <SiteFooter />
-            <FilterSvg />
+            <template v-if="resumeExists">
+                <SiteHeader />
+                <div class="content">
+                    <ThreeDeeTeeVee
+                        v-if="!isMobile || (isMobile && !currentProject)"
+                        :class="{ hasProject: !!currentProject }"
+                    />
+                    <ProjectViewer :currentProject="currentProject" />
+                </div>
+                <TimeLine />
+                <SiteFooter />
+                <FilterSvg />
+            </template>
+            <NoWork v-else-if="!resumeLoading" />
+            <LoadingSpinner v-else />
         </main>
     </div>
 </template>
