@@ -17,7 +17,7 @@ import { useProjects } from './composables/useProjects';
 import { useMobile } from '@/composables/useMobile';
 import { resume } from './components/const/const';
 import LoadingSpinner from './components/LoadingSpinner.vue';
-import NoWork from './components/const/NoWork.vue';
+import NoWork from './components/NoWork.vue';
 
 const grid = computed(
     () =>
