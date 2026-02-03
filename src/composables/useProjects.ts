@@ -1,0 +1,283 @@
+export interface Project {
+    name: string;
+    date: string;
+    description: string[];
+    tech: string[];
+    image?: string;
+    video?: string;
+    link?: string;
+    repo?: string;
+}
+
+const projects: Project[] = [
+    {
+        name: 'Salvaged Parts',
+        date: '05/22',
+        description: ['Artsy web toy about an astronaut making music.'],
+        tech: ['Javascript'],
+        link: 'https://gang-fight.com/projects/salvaged_parts/',
+        image: '/projectThumbs/parts.jpg',
+        video: 'parts.mp4',
+    },
+    {
+        name: 'Portfolio',
+        date: '01/26',
+        description: ['My portfolio.', "You're here now."],
+        tech: ['Vue 3', 'Typescript', 'SCSS', 'Three.js'],
+        repo: 'https://github.com/sbboard/portfolio_2026',
+        video: 'portfolio.mp4',
+    },
+    {
+        name: 'PC-98 Emulation For Beginners',
+        date: '07/21',
+        description: ['Tutorial website for getting started with PC-98 emulation.'],
+        tech: ['HTML5', 'CSS3'],
+        link: 'https://gang-fight.com/projects/98faq/',
+        image: '/projectThumbs/pcfaq.jpg',
+        video: 'guide.mp4',
+    },
+    {
+        name: 'Big Bean Bettors',
+        date: '02/25',
+        description: [
+            'Parody betting website where a small community placed mundane bets on things like current movies using fake digital currency.',
+            'Secured backend systems in an adversarial environment by hardening APIs and game logic against exploit attempts.',
+        ],
+        tech: ['Vue 3', 'Typescript', 'SCSS', 'Node.js', 'Express', 'MongoDB'],
+        image: '/projectThumbs/bean.jpg',
+        repo: 'https://github.com/sbboard/beanBetters',
+        video: 'bean.mp4',
+    },
+    {
+        name: 'Direqt Search Dashboard',
+        date: '03/25',
+        description: ['Dashboard for managing Direqt Search settings and analytics.'],
+        tech: ['Vue 3', 'Typescript', 'SCSS'],
+        image: '/projectThumbs/dash.jpg',
+        video: 'dashboard.mp4',
+    },
+
+    {
+        name: 'Direqt Search',
+        date: '11/24',
+        description: [
+            'AI-powered, embeddable search frontend that lets site owners index their own content and seamlessly integrate intelligent search into their websites.',
+            'Built for easy customization and drop-in deployment across different site architectures.',
+        ],
+        tech: ['Vue 3', 'Typescript', 'SCSS'],
+        image: '/projectThumbs/search.jpg',
+        video: 'search.mp4',
+    },
+    {
+        name: 'Direqt AI Portal',
+        date: '11/25',
+        description: [
+            'AI powered ad widget that focused on engaging users with interactive content, such as chat and polls.',
+        ],
+        tech: ['Vue 3', 'Typescript', 'SCSS'],
+        image: '/projectThumbs/ad.jpg',
+        video: 'ad.mp4',
+    },
+    {
+        name: 'Direqt Webchat',
+        date: '06/24',
+        description: [
+            'AI-powered web chat widget designed for seamless integration and user engagement.',
+        ],
+        tech: ['Vue 3', 'Nuxt', 'Typescript'],
+        image: '/projectThumbs/chat.jpg',
+        video: 'chat.mp4',
+    },
+    {
+        name: 'Splash Screen',
+        date: '01/23',
+        description: ['A very hypnotic splash screen.'],
+        tech: ['Javascript'],
+        link: 'https://gang-fight.com/projects/halfMoon/',
+        image: '/projectThumbs/skull.jpg',
+        video: 'splash.mp4',
+    },
+    {
+        name: 'Soda Enjoyer',
+        date: '06/23',
+        description: ['Goofy retro styled website built to showcase soda rankings.'],
+        tech: ['HTML5', 'CSS3'],
+        link: 'https://sodaenjoyer.com/',
+        image: '/projectThumbs/soda.jpg',
+        video: 'soda.mp4',
+    },
+    {
+        name: 'CEE',
+        date: '01/22',
+        description: ['Educational tool adapted from an old flash site.'],
+        tech: ['Javascript'],
+        repo: 'https://github.com/sbboard/cee',
+        link: 'https://cee.rcreative.marketing/',
+        image: '/projectThumbs/cee.jpg',
+        video: 'cee.mp4',
+    },
+    {
+        name: 'Wellness Quiz',
+        date: '06/21',
+        description: ['Interactive assessment quiz to help assign customers to specific programs.'],
+        tech: ['Javascript'],
+        repo: 'https://github.com/sbboard/quizEngine',
+        link: 'https://sbboard.github.io/quizEngine/',
+        image: '/projectThumbs/well.jpg',
+        video: 'well.mp4',
+    },
+    {
+        name: 'Drawing Warm-Up Tool',
+        date: '02/21',
+        description: [
+            'Simple drawing practice tool.',
+            'Displays local images for a set number of minutes.',
+        ],
+        tech: ['Typescript'],
+        link: 'https://gang-fight.com/projects/warmup/',
+        repo: 'https://github.com/sbboard/warmup',
+        image: '/projectThumbs/warm.jpg',
+        video: 'warm.mp4',
+    },
+    {
+        name: 'The Invisible Sundial Website',
+        date: '01/21',
+        description: ["Homepage for the band 'The Invisible Sundial'."],
+        tech: ['Wordpress', 'PHP'],
+        link: 'https://theinvisiblesundial.com/',
+        repo: 'https://github.com/sbboard/invisibleSundial',
+        image: '/projectThumbs/vis.jpg',
+        video: 'invis.mp4',
+    },
+    {
+        name: '1000 Tapes of Fate',
+        date: '10/20',
+        description: [
+            '"Choose Your Own Adventure" style project where the user is led through an experience exclusively through audio.',
+            'Intended to be played with eyes closed.',
+        ],
+        tech: ['Vue 2'],
+        link: 'https://1000tapes.com/',
+        repo: 'https://github.com/sbboard/audioAdventure',
+        image: '/projectThumbs/tapes.jpg',
+        video: 'tapes.mp4',
+    },
+    {
+        name: 'Curiosity Museum Exhibit Prototype',
+        date: '03/20',
+        description: [
+            "Physical interactive exhibit prototype built in collaboration with Utah's Museum of Natural Curiosity.",
+            'Utilized NFC technology and respberry pi to launch videos on a nearby screen when physical objects were placed on the exhibit surface.',
+        ],
+        tech: ['Python'],
+        repo: 'https://github.com/echohatch1/NFC-Video-Launcher',
+        image: '/projectThumbs/curio.jpg',
+        video: 'curio.mp4',
+    },
+    {
+        name: 'Gang Fight V2',
+        date: '09/24',
+        description: [
+            'Updated version of V1 Gang Fight but with different locations.',
+            'Mainly an excuse to modernize the codebase.',
+        ],
+        tech: ['Vue 3'],
+        image: '/projectThumbs/gf2.jpg',
+        link: 'https://gang-fight.com/',
+        repo: 'https://github.com/sbboard/gang-fight-v2',
+        video: 'gf2.mp4',
+    },
+    {
+        name: 'Gang Fight',
+        date: '07/19',
+        description: [
+            'Creative brand website created with emphasis on atmosphere and personality.',
+        ],
+        tech: ['Vue 2'],
+        image: '/projectThumbs/gf1.jpg',
+        repo: 'https://github.com/sbboard/gangfight',
+    },
+    {
+        name: 'PC-98 Bot (Twitter)',
+        date: '08/19',
+        description: [
+            'Twitter bot that posts images from retro Japanese computer games every 4 hours.',
+            'Generated a follower count of over 60,000 followers.',
+        ],
+        tech: ['Node.js'],
+        link: 'https://x.com/PC98_bot',
+        repo: 'https://github.com/sbboard/pc98bot',
+        image: '/projectThumbs/pc1.jpg',
+        video: 'twitter.mp4',
+    },
+    {
+        name: 'PC-98 Bot (Bsky)',
+        date: '10/23',
+        description: [
+            'Port of the PC-98 Twitter bot to Bluesky.',
+            "Adjusts image on backend to display properly with Bluesky's image compression.",
+        ],
+        tech: ['Node.js'],
+        image: '/projectThumbs/bsky.jpg',
+        link: 'https://bsky.app/profile/pc98bot.gang-fight.com',
+        repo: 'https://github.com/sbboard/pc98bot',
+        video: 'bsky.mp4',
+    },
+].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+});
+
+/**
+ * Composable to manage projects.
+ * @returns An object containing the list of projects and utility functions.
+ */
+export function useProjects() {
+    /**
+     * Get the earliest or latest project date.
+     * @param type 'first' for earliest date, 'last' for latest date
+     * @returns Date object representing the extreme date
+     */
+    const getExtremeDate = (type: 'first' | 'last'): Date => {
+        return projects.reduce((extreme, { date }) => {
+            const d = parseProjectDate(date);
+            return type === 'first' ? (d < extreme ? d : extreme) : d > extreme ? d : extreme;
+        }, parseProjectDate(projects[0]!.date));
+    };
+
+    const parseProjectDate = (value: string): Date => {
+        const [month, year] = value.split('/').map(Number);
+        return new Date(2000 + (year || 0), (month || 0) - 1, 1);
+    };
+
+    /**
+     * Get an array of dates ranging from the earliest to the latest project date.
+     * @returns Array of all months between the earliest and latest project dates.
+     */
+    const getDateRange = (): string[] => {
+        const newest = getExtremeDate('last');
+        const oldest = getExtremeDate('first');
+        const result: string[] = [];
+
+        const current = new Date(newest);
+
+        while (current >= oldest) {
+            const month = String(current.getMonth() + 1).padStart(2, '0');
+            const year = String(current.getFullYear()).slice(-2);
+
+            result.push(`${month}/${year}`);
+            current.setMonth(current.getMonth() - 1);
+        }
+
+        return result;
+    };
+
+    const findProjectByDate = (date: string): Project | undefined => {
+        return projects.find(project => project.date === date);
+    };
+
+    return {
+        projects,
+        getDateRange,
+        findProjectByDate,
+    };
+}
