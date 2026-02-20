@@ -13,10 +13,10 @@ export const themes = [
 const getSavedThemeIndex = (): number => {
     const DEFAULT = 0;
     try {
-        const saved = localStorage.getItem('portfolio-theme-index');
+        const saved = localStorage.getItem('portfolio-theme-name');
         if (!saved) return DEFAULT;
-        const index = parseInt(saved, 10);
-        if (index && index < themes.length) return index;
+        const themeIndex = themes.findIndex(theme => theme.name === saved);
+        if (themeIndex >= 0) return themeIndex;
     } catch (error) {
         console.warn('Failed to load theme from localStorage:', error);
     }
@@ -28,7 +28,9 @@ export const CURRENT_THEME_INDEX = ref(getSavedThemeIndex());
 // Watch for changes and save to localStorage
 watch(CURRENT_THEME_INDEX, newIndex => {
     try {
-        localStorage.setItem('portfolio-theme-index', newIndex.toString());
+        const themeName = themes[newIndex]?.name;
+        if (!themeName) throw new Error('Invalid theme index');
+        localStorage.setItem('portfolio-theme-name', themeName);
     } catch (error) {
         console.warn('Failed to save theme to localStorage:', error);
     }
