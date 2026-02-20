@@ -1,11 +1,12 @@
 import { computed, ref, watch } from 'vue';
 
 export const themes = [
-    { name: 'arctic', text: '#7795af', background: '#f2f5f8' },
-    { name: 'city', text: '#ff119c', background: '#0a070a' },
+    { name: 'arctic', text: '#7ba6cc', background: '#f2f5f8' },
     { name: 'pika', text: '#141414', background: '#ffdc3f' },
+    { name: 'cola', text: '#111111', background: '#ff1f3d' },
+    { name: 'moon', text: '#ffd94f', background: '#171720' },
+    { name: 'city', text: '#ff119c', background: '#0a070a' },
     { name: 'l33t', text: '#00ff00', background: '#000000' },
-    { name: 'paper', text: '#474747', background: '#ffffff' },
 ];
 
 // Load saved theme from localStorage or default to 0
