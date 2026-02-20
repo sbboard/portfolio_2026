@@ -1,1 +1,1 @@
-export const resume = 'https://colinbuffum.com/resume.pdf';
+export const resume = location.origin + '/resume.pdf';
