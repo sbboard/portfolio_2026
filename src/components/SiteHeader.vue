@@ -6,6 +6,7 @@ import me from '@/assets/me.jpg';
 import { ref } from 'vue';
 import { faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 import ThemePicker from '@/components/ThemePicker.vue';
+import { resume } from '@/components/const/const';
 
 const copyFailed = ref(false);
 const copied = ref(false);
@@ -44,7 +45,7 @@ async function copyWrapper(email: string) {
                     <span ref="emailEl">colin.buffum@gmail.com</span>
                     <FontAwesomeIcon :icon="copied ? faClipboardCheck : faClipboard" />
                 </div>
-                <h2><a href="https://colinbuffum.com/resume.pdf" target="_blank">Resume</a></h2>
+                <h2><a :href="resume" target="_blank">Resume</a></h2>
             </div>
         </div>
     </header>

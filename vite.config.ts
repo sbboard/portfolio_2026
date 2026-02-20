@@ -23,4 +23,7 @@ export default defineConfig({
             },
         },
     },
+    server: {
+        allowedHosts: ['cbdireqt.ngrok.app'],
+    },
 });
